@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -18,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/IntelliJ%20IDEA.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_report_problem_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/IntelliJ%20IDEA.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_add_location_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +33,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="a56d22" />
-                            <entry key="outputName" value="ic_shake" />
+                            <entry key="color" value="c25e00" />
+                            <entry key="outputName" value="ic_add_location" />
                             <entry key="sourceFile" value="$USER_HOME$" />
                           </map>
                         </option>
