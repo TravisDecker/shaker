@@ -1,6 +1,7 @@
 package com.shaker.shaker.view;
 
 
+import android.arch.persistence.room.RoomDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.shaker.shaker.R;
+import com.shaker.shaker.controller.MainActivity;
 import com.shaker.shaker.model.database.DataBase;
 import com.shaker.shaker.model.entity.Quake;
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class ListFragment extends Fragment {
       Bundle savedInstanceState) {
     DataBase.getInstance(getActivity());
 
-    sInfoText.add("Hello");
+    sInfoText.add("");
     sMoreInfoText.add("world");
     View view = inflater.inflate(R.layout.list_fragment, container, false);
     shakesView = view.findViewById(R.id.recyclerview);
