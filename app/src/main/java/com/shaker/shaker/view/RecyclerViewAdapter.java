@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.shaker.shaker.R;
 import com.shaker.shaker.model.entity.Quake;
@@ -40,8 +39,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
   public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
     Log.d(TAG, "onBindViewHolder: called");
     holder.bind(quakes.get(i));
-    //   holder.infotext.setText(quakes.toString());
-    // TODO this varies based on what your displaying, import data?
   }
 
   @Override
@@ -52,19 +49,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
   public class ViewHolder extends RecyclerView.ViewHolder {
 
     CardView card;
-    TextView infotext;
-    LinearLayout parent_layout;
+    TextView titleText;
+    TextView alertText;
+    TextView depthText;
+
 
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
       card = itemView.findViewById(R.id.shake_card);
-      infotext = itemView.findViewById(R.id.info_text);
-      parent_layout = itemView.findViewById(R.id.parent_layout);
+      titleText = itemView.findViewById(R.id.title_text);
+      alertText = itemView.findViewById(R.id.alert_text);
+      depthText = itemView.findViewById(R.id.depth_text);
+
     }
 
     public void bind(Quake quake) {
-      infotext.setText(quake.getPlace());
+      titleText.setText(quake.getTitle());
+      alertText.setText("Alert Code: " + quake.getAlert());
+      depthText.setText("Depth " + Double.toString(quake.getDepth()) + " km");
     }
   }
 

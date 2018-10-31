@@ -14,61 +14,56 @@ public class Quake {
   @ColumnInfo(name = "quake_id")
   private long quakeId;
 
+  @ColumnInfo(index = true)
+  private double mag;
+
+  private String place;
+
+  private String title;
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
   @NonNull
   @ColumnInfo(name = "time")
   private Date time;
 
+  private String ids;
 
   private double latitude;
 
-
   private double longitude;
-
 
   private double depth;
 
-  @ColumnInfo(index = true)
-  private double mag;
+  private Date updated;
 
+  private String url;
 
-  @ColumnInfo(name = "mag_type")
-  private String magType;
+  private String detail;
 
+  private String felt;
+
+  @ColumnInfo
+  private String alert;
 
   private int nst;
 
-
-  private int gap;
-
-
-  private long dmin;
-
-
-  private double rms;
-
-
-  private String net;
-
-  @ColumnInfo(name = "net_id")
-  private String netId;
-
-
-  private Date updated;
-  @ColumnInfo
-  private String place;
   private String type;
-  @ColumnInfo(name = "horizontal_error")
-  private double horizontalError;
+
   @ColumnInfo(name = "depth_error")
   private double depthError;
+
   @ColumnInfo(name = "mag_error")
   private long magError;
+
   @ColumnInfo(name = "mag_nst")
   private int magNst;
-  private String status;
-  private String locationSource;
-  @ColumnInfo(name = "mag_source")
-  private String magSource;
 
   public long getQuakeId() {
     return quakeId;
@@ -76,6 +71,10 @@ public class Quake {
 
   public void setQuakeId(long quakeId) {
     this.quakeId = quakeId;
+  }
+
+  public String getAlert() {
+    return alert;
   }
 
   @NonNull
@@ -119,12 +118,40 @@ public class Quake {
     this.mag = mag;
   }
 
-  public String getMagType() {
-    return magType;
+  public String getIds() {
+    return ids;
   }
 
-  public void setMagType(String magType) {
-    this.magType = magType;
+  public void setIds(String ids) {
+    this.ids = ids;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public String getDetail() {
+    return detail;
+  }
+
+  public void setDetail(String detail) {
+    this.detail = detail;
+  }
+
+  public String getFelt() {
+    return felt;
+  }
+
+  public void setFelt(String felt) {
+    this.felt = felt;
+  }
+
+  public void setAlert(String alert) {
+    this.alert = alert;
   }
 
   public int getNst() {
@@ -133,46 +160,6 @@ public class Quake {
 
   public void setNst(int nst) {
     this.nst = nst;
-  }
-
-  public int getGap() {
-    return gap;
-  }
-
-  public void setGap(int gap) {
-    this.gap = gap;
-  }
-
-  public long getDmin() {
-    return dmin;
-  }
-
-  public void setDmin(long dmin) {
-    this.dmin = dmin;
-  }
-
-  public double getRms() {
-    return rms;
-  }
-
-  public void setRms(double rms) {
-    this.rms = rms;
-  }
-
-  public String getNet() {
-    return net;
-  }
-
-  public void setNet(String net) {
-    this.net = net;
-  }
-
-  public String getNetId() {
-    return netId;
-  }
-
-  public void setNetId(String netId) {
-    this.netId = netId;
   }
 
   public Date getUpdated() {
@@ -199,14 +186,6 @@ public class Quake {
     this.type = type;
   }
 
-  public double getHorizontalError() {
-    return horizontalError;
-  }
-
-  public void setHorizontalError(double horizontalError) {
-    this.horizontalError = horizontalError;
-  }
-
   public double getDepthError() {
     return depthError;
   }
@@ -230,30 +209,4 @@ public class Quake {
   public void setMagNst(int magNst) {
     this.magNst = magNst;
   }
-
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-  public String getLocationSource() {
-    return locationSource;
-  }
-
-  public void setLocationSource(String locationSource) {
-    this.locationSource = locationSource;
-  }
-
-  public String getMagSource() {
-    return magSource;
-  }
-
-  public void setMagSource(String magSource) {
-    this.magSource = magSource;
-  }
-
-
 }

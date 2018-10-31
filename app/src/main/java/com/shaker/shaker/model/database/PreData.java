@@ -5,18 +5,25 @@ import java.util.Date;
 
 public class PreData {
 
-  Quake quake;
-  String place = "10km NW of The Geysers, CA";
-  private double latitude = -122.8424988;
-  private double longitude = 38.8388329;
+
+  private String alert = "yellow";
+  private double latitude = 37.383237;
+  private double longitude = -118.417027;
+  private String title = "M 2.0 - 1km ESE of Dixon Lane-Meadow Creek, CA";
+  private int depth = 33;
+  private String felt = "300";
+
 
 
   public Quake setUp() {
     Quake quake = new Quake();
     quake.setLatitude(latitude);
     quake.setLongitude(longitude);
-    quake.setPlace(place);
     quake.setTime(new Date());
+    quake.setTitle(title);
+    quake.setAlert(alert);
+    quake.setDepth(depth);
+    quake.setFelt(felt);
     return quake;
   }
 }

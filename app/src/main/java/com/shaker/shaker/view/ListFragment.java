@@ -29,16 +29,6 @@ public class ListFragment extends Fragment {
   private RecyclerView.LayoutManager mLayoutManager;
   private List<Quake> quakes;
 
-  private DataBase database;
-
-
-  private List<Quake> sInfoText;
-
-
-  public ListFragment() {
-    // Required empty public constructor
-  }
-
   public static ListFragment newInstance(List<Quake> quakes) {
     ListFragment fragment = new ListFragment();
     return fragment;
@@ -72,5 +62,5 @@ public class ListFragment extends Fragment {
     });
     return view;
   }
-
+// TODO Change info text to be more clear.
 }
