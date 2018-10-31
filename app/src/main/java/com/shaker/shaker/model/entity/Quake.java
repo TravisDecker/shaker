@@ -19,10 +19,10 @@ public class Quake {
   private Date time;
 
 
-  private long latitude;
+  private double latitude;
 
 
-  private long longitude;
+  private double longitude;
 
 
   private double depth;
@@ -54,6 +54,21 @@ public class Quake {
 
 
   private Date updated;
+  @ColumnInfo
+  private String place;
+  private String type;
+  @ColumnInfo(name = "horizontal_error")
+  private double horizontalError;
+  @ColumnInfo(name = "depth_error")
+  private double depthError;
+  @ColumnInfo(name = "mag_error")
+  private long magError;
+  @ColumnInfo(name = "mag_nst")
+  private int magNst;
+  private String status;
+  private String locationSource;
+  @ColumnInfo(name = "mag_source")
+  private String magSource;
 
   public long getQuakeId() {
     return quakeId;
@@ -72,19 +87,19 @@ public class Quake {
     this.time = time;
   }
 
-  public long getLatitude() {
+  public double getLatitude() {
     return latitude;
   }
 
-  public void setLatitude(long latitude) {
+  public void setLatitude(double latitude) {
     this.latitude = latitude;
   }
 
-  public long getLongitude() {
+  public double getLongitude() {
     return longitude;
   }
 
-  public void setLongitude(long longitude) {
+  public void setLongitude(double longitude) {
     this.longitude = longitude;
   }
 
@@ -239,38 +254,6 @@ public class Quake {
   public void setMagSource(String magSource) {
     this.magSource = magSource;
   }
-
-  @ColumnInfo
-  private String place;
-
-
-  private String type;
-
-
-  @ColumnInfo(name = "horizontal_error")
-  private double horizontalError;
-
-
-  @ColumnInfo(name = "depth_error")
-  private double depthError;
-
-
-  @ColumnInfo(name = "mag_error")
-  private long magError;
-
-
-  @ColumnInfo(name = "mag_nst")
-  private int magNst;
-
-
-  private String status;
-
-
-  private String locationSource;
-
-
-  @ColumnInfo(name = "mag_source")
-  private String magSource;
 
 
 }

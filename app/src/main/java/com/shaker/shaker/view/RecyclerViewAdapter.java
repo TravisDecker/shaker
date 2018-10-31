@@ -14,18 +14,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.shaker.shaker.R;
-import java.util.ArrayList;
+import com.shaker.shaker.model.entity.Quake;
+import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-  private ArrayList<String> sInfoText;
-  private ArrayList<String> sMoreInfoText;
   private Context context;
+  private List<Quake> quakes;
 
-  public RecyclerViewAdapter(ArrayList<String> sInfoText,
-      ArrayList<String> sMoreInfoText, Context context) {
-    this.sInfoText = sInfoText;
-    this.sMoreInfoText = sMoreInfoText;
+  public RecyclerViewAdapter(List<Quake> quakes, Context context) {
+    this.quakes = quakes;
     this.context = context;
   }
 
@@ -41,13 +39,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
     Log.d(TAG, "onBindViewHolder: called");
-    holder.infotext.setText(sInfoText.get(i));
+    holder.bind(quakes.get(i));
+    //   holder.infotext.setText(quakes.toString());
     // TODO this varies based on what your displaying, import data?
   }
 
   @Override
   public int getItemCount() {
-    return sInfoText.size();
+    return quakes.size();
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {
@@ -62,6 +61,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
       card = itemView.findViewById(R.id.shake_card);
       infotext = itemView.findViewById(R.id.info_text);
       parent_layout = itemView.findViewById(R.id.parent_layout);
+    }
+
+    public void bind(Quake quake) {
+      infotext.setText(quake.getPlace());
     }
   }
 

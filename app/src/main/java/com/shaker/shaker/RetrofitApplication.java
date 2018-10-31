@@ -11,6 +11,10 @@ public class RetrofitApplication extends Application {
   private Retrofit retrofit;
   // private RetrofitService service;
 
+  public static RetrofitApplication getInstance() {
+    return instance;
+  }
+
   @Override
   public void onCreate() {
     super.onCreate();
@@ -23,10 +27,6 @@ public class RetrofitApplication extends Application {
         .build();
 
 //    service = retrofit.create(RetrofitService.class);
-  }
-
-  public static RetrofitApplication getInstance() {
-    return instance;
   }
 
   public Retrofit getRetrofit() {

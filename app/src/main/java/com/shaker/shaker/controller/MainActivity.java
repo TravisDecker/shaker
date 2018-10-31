@@ -1,25 +1,26 @@
 package com.shaker.shaker.controller;
 
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -27,10 +28,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.shaker.shaker.R;
 import com.shaker.shaker.model.database.DataBase;
 import com.shaker.shaker.model.entity.Quake;
 import com.shaker.shaker.view.ListFragment;
-import com.shaker.shaker.R;
 import com.shaker.shaker.view.RecyclerViewAdapter;
 import java.util.List;
 
@@ -39,9 +40,11 @@ public class MainActivity extends AppCompatActivity
     implements OnNavigationItemSelectedListener, OnMapReadyCallback {
 
   private static final String TAG = "tag";
+  Context context;
   private SupportMapFragment mapFragment;
   private RecyclerViewAdapter adapter;
   private DataBase database;
+  private List<Quake> quakes;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,13 @@ public class MainActivity extends AppCompatActivity
     }
     mapFragment.getMapAsync(this);
 
+    database = DataBase.getInstance(this);
+
+
+  }
+
+  public void queryQuakes(QueryCallback callback) {
+    new QueryTask(callback).execute();
   }
 
   private void switchFragment(Fragment fragment, boolean useStack, String varient) {
@@ -162,7 +172,7 @@ public class MainActivity extends AppCompatActivity
     if (id == R.id.nav_map) {
       switchFragment(mapFragment, true, null);
     } else if (id == R.id.nav_list) {
-      switchFragment(ListFragment.newInstance(), true, null);
+      switchFragment(ListFragment.newInstance(quakes), true, null);
     } else if (id == R.id.nav_create) {
 
     } else if (id == R.id.nav_manage) {
@@ -178,17 +188,29 @@ public class MainActivity extends AppCompatActivity
     return true;
   }
 
+  public interface QueryCallback {
+
+    void consume(List<Quake> quakes);
+  }
+
   private class QueryTask extends AsyncTask<Void, Void, List<Quake>> {
+
+    private QueryCallback callback;
+
+    public QueryTask(QueryCallback callback) {
+      this.callback = callback;
+    }
 
     @Override
     protected void onPostExecute(List<Quake> quakes) {
-      quakes.clear();
-      quakes.addAll(quakes);
-      adapter.notifyDataSetChanged();
+      if (callback != null) {
+        callback.consume(quakes);
+      }
     }
 
     @Override
     protected List<Quake> doInBackground(Void... voids) {
+      DataBase.getInstance(context);
       return database.getQuakeDao().select();
     }
   }

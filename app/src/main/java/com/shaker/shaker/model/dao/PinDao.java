@@ -6,7 +6,6 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import com.shaker.shaker.model.entity.Pin;
-import com.shaker.shaker.model.entity.Quake;
 import java.util.List;
 
 @Dao
