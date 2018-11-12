@@ -14,28 +14,28 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/shake_card"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="150dp"
     android:layout_gravity="center"
     android:padding="@dimen/activity_padding"
     card_view:cardBackgroundColor="@color/primaryDarkColor"
-    card_view:cardCornerRadius="4dp">
+    card_view:cardCornerRadius="16dp">
 
     <TextView
       android:id="@+id/place_text"
       style="@style/cardStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="top|center_horizontal"/>
+      android:layout_gravity="center"/>
 
     <TextView
       android:id="@+id/time_text"
       style="@style/cardStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="bottom|left"/>
+      android:layout_gravity="top|center"/>
 
     <TextView
-      android:id="@+id/depth_text"
+      android:id="@+id/mag_text"
       style="@style/cardStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

@@ -60,7 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     CardView card;
     TextView placeText;
     TextView timeText;
-    TextView depthText;
+    TextView magText;
     Properties properties;
 
     public ViewHolder(@NonNull View itemView) {
@@ -78,7 +78,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
       });
       placeText = itemView.findViewById(R.id.place_text);
       timeText = itemView.findViewById(R.id.time_text);
-      //depthText = itemView.findViewById(R.id.depth_text);
+      magText = itemView.findViewById(R.id.mag_text);
 
     }
 
@@ -88,7 +88,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
       properties = feature.getProperties();
       placeText.setText(properties.getPlace());
       timeText.setText(new Date(properties.getTime()).toString());
-      // depthText.setText("depth: " + geometry.getDepth().toString() + "Km");
+      magText.setText("Magnitude " + properties.getMag().toString());
     }
   }
 

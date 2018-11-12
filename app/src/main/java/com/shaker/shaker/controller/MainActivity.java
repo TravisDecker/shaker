@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity
     database = DataBase.getInstance(this);
     quakeTask = new QuakeTask();
     quakeTask.execute();
+    Toast.makeText(this, "Please wait while we connect...", Toast.LENGTH_LONG).show();
   }
 
   private void setupService() {
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity
   }
 
   private void setupMap() {
+    Toast.makeText(this, "Connected to server...", Toast.LENGTH_LONG).show();
     mapFragment = (SupportMapFragment) getSupportFragmentManager()
         .findFragmentById(R.id.map);
     if (mapFragment == null) {
