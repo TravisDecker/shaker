@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -21,19 +19,33 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.shaker.shaker.R;
 import com.shaker.shaker.model.database.DataBase;
-import com.shaker.shaker.model.entity.Quake;
+import com.shaker.shaker.model.entity.Feature;
+import com.shaker.shaker.model.entity.Geometry;
+import com.shaker.shaker.model.entity.Properties;
+import com.shaker.shaker.model.entity.Shake;
+import com.shaker.shaker.service.ShakerService;
+import com.shaker.shaker.view.FilterFragment;
 import com.shaker.shaker.view.ListFragment;
-import com.shaker.shaker.view.RecyclerViewAdapter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity
@@ -42,25 +54,59 @@ public class MainActivity extends AppCompatActivity
   private static final String TAG = "tag";
   Context context;
   private SupportMapFragment mapFragment;
-  private RecyclerViewAdapter adapter;
-  private DataBase database;
-  private List<Quake> quakes;
+  DataBase database;
+  private ShakerService service;
+  private QuakeTask quakeTask;
+  private List<Feature> features;
+  private ProgressBar spinner;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setupUI();
+    setupService();
+    database = DataBase.getInstance(this);
+    quakeTask = new QuakeTask();
+    quakeTask.execute();
+  }
+
+  private void setupService() {
+    Gson gson = new GsonBuilder()
+        .excludeFieldsWithoutExposeAnnotation()
+        // TODO set date format for date specific requests
+        .create();
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(getString(R.string.base_url))
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build();
+    service = retrofit.create(ShakerService.class);
+  }
+
+  private void setupMap() {
+    mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        .findFragmentById(R.id.map);
+    if (mapFragment == null) {
+      mapFragment = new SupportMapFragment();
+      getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment)
+          .commit();
+    }
+    mapFragment.getMapAsync(this);
+  }
+
+  private void setupUI() {
     setContentView(R.layout.activity_main);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-    fab.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show();
-      }
-    });
+//    fab = (FloatingActionButton) findViewById(R.id.fab);
+//    fab.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View view) {
+//        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//            .setAction("Action", null).show();
+//      }
+//    });
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,21 +117,12 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
-    mapFragment = (SupportMapFragment) getSupportFragmentManager()
-        .findFragmentById(R.id.map);
-    if (mapFragment == null) {
-      mapFragment = new SupportMapFragment();
-      getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment)
-          .commit();
-    }
-    mapFragment.getMapAsync(this);
-
-    database = DataBase.getInstance(this);
-
+    spinner = findViewById(R.id.spinner);
+    spinner.setVisibility(View.GONE);
 
   }
 
-  public void queryQuakes(QueryCallback callback) {
+  public void queryShakes(QueryCallback callback) {
     new QueryTask(callback).execute();
   }
 
@@ -100,6 +137,21 @@ public class MainActivity extends AppCompatActivity
     if (useStack) {
       transaction.addToBackStack(tag);
     }
+    transaction.setTransition(4097);
+    transaction.commit();
+  }
+
+  private void addFragment(Fragment fragment, boolean useStack, String varient) {
+    FragmentManager manager = getSupportFragmentManager();
+    String tag = fragment.getClass().getSimpleName() + ((varient != null) ? varient : "");
+    if (manager.findFragmentByTag(tag) != null) {
+      manager.popBackStackImmediate(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+    FragmentTransaction transaction = manager.beginTransaction();
+    transaction.add(R.id.fragment_container, fragment, tag);
+    if (useStack) {
+      transaction.addToBackStack(tag);
+    }
 
     transaction.commit();
   }
@@ -107,6 +159,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onMapReady(GoogleMap googleMap) {
     GoogleMap map = googleMap;
+
 
     try {
       // Customise the styling of the base map using a JSON object defined
@@ -122,12 +175,29 @@ public class MainActivity extends AppCompatActivity
       Log.e(TAG, "Can't find style. Error: ", e);
     }
 
-    // Add a marker in Sydney and move the camera
+    int i;
+    if (features != null) {
+      for (i = 0; i < features.size(); i++) {
+        Feature feature = features.get(i);
+        Geometry geometry = feature.getGeometry();
+        Properties properties = feature.getProperties();
+        LatLng Shake = new LatLng(geometry.getLatitude(), geometry.getLongitude());
+        map.addMarker(new MarkerOptions()
+            .position(Shake)
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ring))
+            .snippet(properties.getTitle())
+            .title(new Date(properties.getTime()).toString()));
+      }
+    }
+
     LatLng Albuquerque = new LatLng(35.0844, -106.6504);
     map.addMarker(new MarkerOptions()
         .position(Albuquerque)
-        .title("Shaker was made here in Albuquerque"));
+        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+        .title("Albuquerque")
+        .snippet("Shaker was made here in Albuquerque"));
     map.moveCamera(CameraUpdateFactory.newLatLng(Albuquerque));
+    spinner.setVisibility(View.GONE);
   }
 
   @Override
@@ -162,7 +232,6 @@ public class MainActivity extends AppCompatActivity
     return super.onOptionsItemSelected(item);
   }
 
-  @SuppressWarnings("StatementWithEmptyBody")
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
     // Handle navigation view item clicks here.
@@ -172,14 +241,15 @@ public class MainActivity extends AppCompatActivity
     if (id == R.id.nav_map) {
       switchFragment(mapFragment, true, null);
     } else if (id == R.id.nav_list) {
-      switchFragment(ListFragment.newInstance(quakes), true, null);
+      switchFragment(ListFragment.newInstance(), true, null);
+      Toast.makeText(this, "List View", Toast.LENGTH_LONG);
     } else if (id == R.id.nav_create) {
 
-    } else if (id == R.id.nav_manage) {
+    } else if (id == R.id.nav_filter) {
+      addFragment(FilterFragment.newInstance(), true, null);
+    } else if (id == R.id.filter_date) {
 
-    } else if (id == R.id.nav_share) {
-
-    } else if (id == R.id.nav_send) {
+    } else if (id == R.id.filter_mag) {
 
     }
 
@@ -188,12 +258,12 @@ public class MainActivity extends AppCompatActivity
     return true;
   }
 
-  public interface QueryCallback {
+  public interface QueryCallback<T> {
 
-    void consume(List<Quake> quakes);
+    void consume(List<T> features);
   }
 
-  private class QueryTask extends AsyncTask<Void, Void, List<Quake>> {
+  private class QueryTask extends AsyncTask<Void, Void, List<Feature>> {
 
     private QueryCallback callback;
 
@@ -202,16 +272,61 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onPostExecute(List<Quake> quakes) {
+    protected void onPostExecute(List<Feature> features) {
       if (callback != null) {
-        callback.consume(quakes);
+        callback.consume(features);
       }
     }
 
     @Override
-    protected List<Quake> doInBackground(Void... voids) {
+    protected List<Feature> doInBackground(Void... voids) {
       DataBase.getInstance(context);
-      return database.getQuakeDao().select();
+      return database.getFeatureDao().select();
+    }
+  }
+
+  public class QuakeTask extends AsyncTask<Void, Void, List<Feature>> {
+
+    @Override
+    protected void onPreExecute() {
+      spinner.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected List<Feature> doInBackground(Void... voids) {
+      List<Feature> features = null;
+
+      try {
+        Response<Shake> response = service.get().execute();
+        Shake shake = response.body();
+        features = shake.getFeatures();
+        DataBase.convertCords(features);
+        database.getFeatureDao().insert(features);
+
+      } catch (Exception e) {
+        Log.d(TAG, e.getLocalizedMessage() + "caught exception ");
+      }
+
+      return features;
+    }
+
+    @Override
+    protected void onPostExecute(List<Feature> features) {
+
+      queryShakes(new QueryCallback() {
+        @Override
+        public void consume(List features) {
+          MainActivity.this.features = new ArrayList<>();
+          MainActivity.this.features.addAll(features);
+          setupMap();
+        }
+      });
+    }
+
+    @Override
+    protected void onCancelled() {
+      super.onCancelled();
+      Log.d(TAG, "onCancelled called");
     }
   }
 }

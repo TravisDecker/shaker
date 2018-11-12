@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/IntelliJ%20IDEA.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_add_location_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/IntelliJ%20IDEA.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/notification/ic_network_check_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="c25e00" />
-                            <entry key="outputName" value="ic_add_location" />
+                            <entry key="outputName" value="ic_network_check" />
                             <entry key="sourceFile" value="$USER_HOME$" />
                           </map>
                         </option>

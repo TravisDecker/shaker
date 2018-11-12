@@ -11,9 +11,8 @@ import android.view.ViewGroup;
 import com.shaker.shaker.R;
 import com.shaker.shaker.controller.MainActivity;
 import com.shaker.shaker.controller.MainActivity.QueryCallback;
-import com.shaker.shaker.model.database.DataBase;
-import com.shaker.shaker.model.entity.Quake;
-import java.util.LinkedList;
+import com.shaker.shaker.model.entity.Feature;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,13 +22,12 @@ import java.util.List;
  */
 public class ListFragment extends Fragment {
 
-  private String text;
   private RecyclerView shakesView;
   private RecyclerView.Adapter adapter;
   private RecyclerView.LayoutManager mLayoutManager;
-  private List<Quake> quakes;
+  private List<Feature> features;
 
-  public static ListFragment newInstance(List<Quake> quakes) {
+  public static ListFragment newInstance() {
     ListFragment fragment = new ListFragment();
     return fragment;
   }
@@ -39,28 +37,27 @@ public class ListFragment extends Fragment {
     super.onCreate(savedInstanceState);
   }
 
-
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    List<Quake> sInfoText = new LinkedList<>();
-    quakes = new LinkedList<>();
-    sInfoText.addAll(quakes);
+
+    features = new ArrayList<>();
+
     View view = inflater.inflate(R.layout.list_fragment, container, false);
     shakesView = view.findViewById(R.id.recyclerview);
     mLayoutManager = new LinearLayoutManager(getActivity());
     shakesView.setLayoutManager(mLayoutManager);
-    adapter = new RecyclerViewAdapter(quakes, getActivity());
+    adapter = new RecyclerViewAdapter(features, getActivity(), this);
     shakesView.setAdapter(adapter);
-    ((MainActivity) getActivity()).queryQuakes(new QueryCallback() {
+    ((MainActivity) getActivity()).queryShakes(new QueryCallback<Feature>() {
       @Override
-      public void consume(List<Quake> quakes) {
-        ListFragment.this.quakes.clear();
-        ListFragment.this.quakes.addAll(quakes);
+      public void consume(List<Feature> features) {
+        ListFragment.this.features.clear();
+        ListFragment.this.features.addAll(features);
         adapter.notifyDataSetChanged();
       }
     });
     return view;
   }
-// TODO Change info text to be more clear.
+
 }
