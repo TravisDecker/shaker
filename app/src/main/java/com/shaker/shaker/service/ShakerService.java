@@ -6,10 +6,6 @@ import retrofit2.http.GET;
 
 public interface ShakerService {
 
-//  @GET("query?format=geojson")
-//  Call<Shake> get(@Query("starttime")String startTime, @Query("endtime") String endTime);
-
   @GET("query?format=geojson")
   Call<Shake> get();
-
 }

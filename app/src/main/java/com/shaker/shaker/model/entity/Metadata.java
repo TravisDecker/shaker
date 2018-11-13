@@ -8,18 +8,23 @@ public class Metadata {
   @SerializedName("generated")
   @Expose
   private Long generated;
+
   @SerializedName("url")
   @Expose
   private String url;
+
   @SerializedName("title")
   @Expose
   private String title;
+
   @SerializedName("status")
   @Expose
   private Long status;
+
   @SerializedName("api")
   @Expose
   private String api;
+
   @SerializedName("count")
   @Expose
   private Long count;
@@ -71,5 +76,4 @@ public class Metadata {
   public void setCount(Long count) {
     this.count = count;
   }
-
 }

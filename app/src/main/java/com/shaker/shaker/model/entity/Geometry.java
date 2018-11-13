@@ -5,22 +5,16 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
-
 public class Geometry {
-
 
   @Ignore
   @SerializedName("coordinates")
   @Expose
   private ArrayList<Double> coordinates;
 
-
   private Double latitude;
-
   private Double longitude;
-
   private Double depth;
-
 
   public ArrayList<Double> getCoordinates() {
     return coordinates;

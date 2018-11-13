@@ -1,6 +1,5 @@
 package com.shaker.shaker.controller;
 
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -47,19 +46,18 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 public class MainActivity extends AppCompatActivity
     implements OnNavigationItemSelectedListener, OnMapReadyCallback {
 
   private static final String TAG = "tag";
-  Context context;
+
   private SupportMapFragment mapFragment;
-  DataBase database;
   private ShakerService service;
   private QuakeTask quakeTask;
   private List<Feature> features;
   private ProgressBar spinner;
-
+  DataBase database;
+  Context context;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -98,30 +96,20 @@ public class MainActivity extends AppCompatActivity
 
   private void setupUI() {
     setContentView(R.layout.activity_main);
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-//    fab = (FloatingActionButton) findViewById(R.id.fab);
-//    fab.setOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View view) {
-//        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//            .setAction("Action", null).show();
-//      }
-//    });
-
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    DrawerLayout drawer = findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.addDrawerListener(toggle);
     toggle.syncState();
 
-    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+    NavigationView navigationView = findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
     spinner = findViewById(R.id.spinner);
     spinner.setVisibility(View.GONE);
-
   }
 
   public void queryShakes(QueryCallback callback) {
@@ -154,29 +142,24 @@ public class MainActivity extends AppCompatActivity
     if (useStack) {
       transaction.addToBackStack(tag);
     }
-
     transaction.commit();
   }
 
   @Override
   public void onMapReady(GoogleMap googleMap) {
     GoogleMap map = googleMap;
-
-
     try {
       // Customise the styling of the base map using a JSON object defined
       // in a raw resource file.
       boolean success = googleMap.setMapStyle(
           MapStyleOptions.loadRawResourceStyle(
               this, R.raw.style_json));
-
       if (!success) {
         Log.e(TAG, "Style parsing failed.");
       }
     } catch (Resources.NotFoundException e) {
       Log.e(TAG, "Can't find style. Error: ", e);
     }
-
     int i;
     if (features != null) {
       for (i = 0; i < features.size(); i++) {
@@ -191,20 +174,19 @@ public class MainActivity extends AppCompatActivity
             .title(new Date(properties.getTime()).toString()));
       }
     }
-
     LatLng Albuquerque = new LatLng(35.0844, -106.6504);
     map.addMarker(new MarkerOptions()
         .position(Albuquerque)
         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-        .title("Albuquerque")
-        .snippet("Shaker was made here in Albuquerque"));
+        .title(getString(R.string.abq_pin))
+        .snippet(getString(R.string.shaker_made_here)));
     map.moveCamera(CameraUpdateFactory.newLatLng(Albuquerque));
     spinner.setVisibility(View.GONE);
   }
 
   @Override
   public void onBackPressed() {
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    DrawerLayout drawer = findViewById(R.id.drawer_layout);
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
@@ -225,12 +207,10 @@ public class MainActivity extends AppCompatActivity
 //       automatically handle clicks on the Home/Up button, so long
 //      as you specify a parent activity in AndroidManifest.xml
     int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
+//    noinspection SimplifiableIfStatement
     if (id == R.id.action_settings) {
       return true;
     }
-
     return super.onOptionsItemSelected(item);
   }
 
@@ -239,14 +219,13 @@ public class MainActivity extends AppCompatActivity
     // Handle navigation view item clicks here.
     String varient = null;
     int id = item.getItemId();
-
     if (id == R.id.nav_map) {
       switchFragment(mapFragment, true, null);
     } else if (id == R.id.nav_list) {
       switchFragment(ListFragment.newInstance(), true, null);
-      Toast.makeText(this, "List View", Toast.LENGTH_LONG);
+      Toast.makeText(this, "List View", Toast.LENGTH_LONG).show();
     } else if (id == R.id.nav_create) {
-
+      //TODO handle nav create
     } else if (id == R.id.nav_filter) {
       addFragment(FilterFragment.newInstance(), true, null);
     } else if (id == R.id.filter_date) {
@@ -254,8 +233,7 @@ public class MainActivity extends AppCompatActivity
     } else if (id == R.id.filter_mag) {
 
     }
-
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    DrawerLayout drawer = findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
   }
@@ -297,24 +275,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected List<Feature> doInBackground(Void... voids) {
       List<Feature> features = null;
-
       try {
         Response<Shake> response = service.get().execute();
         Shake shake = response.body();
         features = shake.getFeatures();
         DataBase.convertCords(features);
         database.getFeatureDao().insert(features);
-
       } catch (Exception e) {
         Log.d(TAG, e.getLocalizedMessage() + "caught exception ");
       }
-
       return features;
     }
 
     @Override
     protected void onPostExecute(List<Feature> features) {
-
       queryShakes(new QueryCallback() {
         @Override
         public void consume(List features) {

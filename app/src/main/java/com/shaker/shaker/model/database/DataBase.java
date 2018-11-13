@@ -23,12 +23,12 @@ import java.util.concurrent.Executors;
     version = 1,
     exportSchema = false
 )
+//TODO export schema for documentation
 @TypeConverters(Converters.class)
 public abstract class DataBase extends RoomDatabase {
 
   private static final String DB_NAME = "database";
   private static DataBase instance = null;
-
 
   public synchronized static DataBase getInstance(final Context context) {
     if (instance == null) {
@@ -51,7 +51,6 @@ public abstract class DataBase extends RoomDatabase {
                 }
               })
           .build();
-
     }
     return instance;
   }
@@ -60,7 +59,7 @@ public abstract class DataBase extends RoomDatabase {
     instance = null;
   }
 
-  public static List<Feature> convertCords(List<Feature> features) {
+  public static void convertCords(List<Feature> features) {
     int i;
     for (i = 0; i < features.size(); i++) {
       Feature feature = features.get(i);
@@ -70,7 +69,6 @@ public abstract class DataBase extends RoomDatabase {
       geometry.setLatitude(coordinates.get(1));
       geometry.setDepth(coordinates.get(2));
     }
-    return features;
   }
 
   public abstract PinDao getPinDao();
@@ -78,31 +76,6 @@ public abstract class DataBase extends RoomDatabase {
   public abstract FeatureDao getFeatureDao();
 
   public static class Converters {
-
-//    @TypeConverter
-//    private static String stringFromCord(Geometry geometry) {
-//      String cords;
-//      cords = geometry.getCoordinates().get(0).toString() + " " +
-//          geometry.getCoordinates().get(1).toString() + " " +
-//          geometry.getCoordinates().get(2).toString();
-//      return cords;
-//    }
-//
-//    @TypeConverter
-//    Geometry geoFromString(String string) {
-//      Geometry geometry = new Geometry();
-//
-//      String[] cords = string.split(" ");
-//      ArrayList<Double> coordinates = new ArrayList<>();
-//
-//      coordinates.add(Double.parseDouble(cords[0]));
-//      coordinates.add(Double.parseDouble(cords[0]));
-//      coordinates.add(Double.parseDouble(cords[0]));
-//
-//      geometry.setCoordinates(coordinates);
-//
-//      return geometry;
-//   }
 
     @TypeConverter
     public static Date dateFromLong(Long time) {
@@ -114,6 +87,4 @@ public abstract class DataBase extends RoomDatabase {
       return (date != null) ? date.getTime() : null;
     }
   }
-
-
 }

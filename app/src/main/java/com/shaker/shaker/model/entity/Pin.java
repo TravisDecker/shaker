@@ -11,7 +11,7 @@ public class Pin {
   @ColumnInfo(name = "pin_id")
   private long id;
 
-  @ColumnInfo(name = "name")
+  @ColumnInfo
   private String name;
 
   private String description;

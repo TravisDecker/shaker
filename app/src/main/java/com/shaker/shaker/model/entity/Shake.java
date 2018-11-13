@@ -4,9 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-
 public class Shake {
-
 
   @SerializedName("type")
   @Expose
@@ -43,5 +41,4 @@ public class Shake {
   public void setFeatures(List<Feature> features) {
     this.features = features;
   }
-
 }

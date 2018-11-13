@@ -13,12 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.shaker.shaker.R;
 
-
 public class FilterFragment extends Fragment {
-
-  TextView text;
-  Button todayButton;
-  Context context;
 
   public static FilterFragment newInstance() {
     FilterFragment fragment = new FilterFragment();
@@ -29,17 +24,15 @@ public class FilterFragment extends Fragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    context = getContext();
+    Context context = getContext();
     View view = inflater.inflate(R.layout.filter_fragment, container, false);
-    text = view.findViewById(R.id.today);
-    todayButton = view.findViewById(R.id.today_button);
+    TextView text = view.findViewById(R.id.today);
+    Button todayButton = view.findViewById(R.id.today_button);
     todayButton.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-
       }
     });
     return view;
-
   }
 }

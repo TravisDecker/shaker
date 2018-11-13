@@ -29,7 +29,6 @@ public class Feature {
   @Expose
   private String id;
 
-
   public String getType() {
     return type;
   }
@@ -61,6 +60,4 @@ public class Feature {
   public void setId(String id) {
     this.id = id;
   }
-
-
 }

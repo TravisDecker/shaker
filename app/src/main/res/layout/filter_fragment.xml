@@ -5,8 +5,7 @@
   android:layout_height="200dp"
   android:layout_gravity="center"
   android:background="@color/secondaryColor"
-  android:elevation="3dp"
-  >
+  android:elevation="3dp">
 
   <TextView
     android:id="@+id/today"

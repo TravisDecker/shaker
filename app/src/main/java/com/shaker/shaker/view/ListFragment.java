@@ -1,6 +1,5 @@
 package com.shaker.shaker.view;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,16 +14,13 @@ import com.shaker.shaker.model.entity.Feature;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * A simple {@link Fragment} subclass. Use the {@link ListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class ListFragment extends Fragment {
 
-  private RecyclerView shakesView;
   private RecyclerView.Adapter adapter;
-  private RecyclerView.LayoutManager mLayoutManager;
   private List<Feature> features;
 
   public static ListFragment newInstance() {
@@ -42,11 +38,10 @@ public class ListFragment extends Fragment {
       Bundle savedInstanceState) {
 
     features = new ArrayList<>();
-
     View view = inflater.inflate(R.layout.list_fragment, container, false);
-    shakesView = view.findViewById(R.id.recyclerview);
-    mLayoutManager = new LinearLayoutManager(getActivity());
-    shakesView.setLayoutManager(mLayoutManager);
+    RecyclerView shakesView = view.findViewById(R.id.recyclerview);
+    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+    shakesView.setLayoutManager(layoutManager);
     adapter = new RecyclerViewAdapter(features, getActivity(), this);
     shakesView.setAdapter(adapter);
     ((MainActivity) getActivity()).queryShakes(new QueryCallback<Feature>() {
@@ -59,5 +54,4 @@ public class ListFragment extends Fragment {
     });
     return view;
   }
-
 }

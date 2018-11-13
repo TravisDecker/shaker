@@ -14,23 +14,15 @@ import java.util.Date;
 
 public class ShakeFragment extends Fragment {
 
-
   private static final String KEY = "key";
-  private static String TAG = "tag";
-  TextView placeText;
-  TextView timeText;
-  TextView statusText;
-  TextView urlText;
 
-  public static ShakeFragment newInstance(Properties properties) {
+  static ShakeFragment newInstance(Properties properties) {
     ShakeFragment fragment = new ShakeFragment();
     Bundle bundle = new Bundle();
     bundle.putParcelable(KEY, properties);
     fragment.setArguments(bundle);
-
     return fragment;
   }
-
 
   @Nullable
   @Override
@@ -38,15 +30,14 @@ public class ShakeFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     Properties properties = getArguments().getParcelable(KEY);
     View view = inflater.inflate(R.layout.shake_fragment, container, false);
-    placeText = view.findViewById(R.id.place_text);
-    timeText = view.findViewById(R.id.time_text);
-    statusText = view.findViewById(R.id.status_text);
-    urlText = view.findViewById(R.id.url_text);
+    TextView placeText = view.findViewById(R.id.place_text);
+    TextView timeText = view.findViewById(R.id.time_text);
+    TextView statusText = view.findViewById(R.id.status_text);
+    TextView urlText = view.findViewById(R.id.url_text);
     placeText.setText(properties.getPlace());
     timeText.setText(new Date(properties.getTime()).toString());
     statusText.setText(properties.getStatus());
     urlText.setText(properties.getUrl());
     return view;
-
   }
 }

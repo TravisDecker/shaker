@@ -2,14 +2,10 @@ package com.shaker.shaker.model.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
 public class Properties implements Parcelable {
-
-//  @ColumnInfo(index = true)
 
   public static final Parcelable.Creator<Properties> CREATOR
       = new Parcelable.Creator<Properties>() {
@@ -22,6 +18,7 @@ public class Properties implements Parcelable {
       return new Properties[size];
     }
   };
+
   @SerializedName("mag")
   @Expose
   private Double mag;
@@ -30,7 +27,6 @@ public class Properties implements Parcelable {
   @Expose
   private String place;
 
-  @NonNull
   @SerializedName("time")
   @Expose
   private Long time;
@@ -74,26 +70,6 @@ public class Properties implements Parcelable {
   @SerializedName("title")
   @Expose
   private String title;
-
-  public Properties() {
-
-  }
-
-  private Properties(Parcel in) {
-    in.readDouble();
-    in.readString();
-    in.readLong();
-    in.readLong();
-    in.readString();
-    in.readString();
-    in.readLong();
-    in.readString();
-    in.readString();
-    in.readString();
-    in.readString();
-    in.readLong();
-    in.readString();
-  }
 
   public Double getMag() {
     return mag;
@@ -204,6 +180,25 @@ public class Properties implements Parcelable {
     return 0;
   }
 
+  public Properties() {
+  }
+
+  private Properties(Parcel in) {
+    in.readDouble();
+    in.readString();
+    in.readLong();
+    in.readLong();
+    in.readString();
+    in.readString();
+    in.readLong();
+    in.readString();
+    in.readString();
+    in.readString();
+    in.readString();
+    in.readLong();
+    in.readString();
+  }
+
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeDouble(mag);
@@ -220,5 +215,4 @@ public class Properties implements Parcelable {
     dest.writeLong(nst);
     dest.writeString(title);
   }
-
 }
