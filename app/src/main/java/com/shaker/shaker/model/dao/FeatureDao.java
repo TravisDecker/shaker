@@ -12,20 +12,16 @@ import java.util.List;
 public interface FeatureDao {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  long insert(Feature feature);
-
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
   List<Long> insert(List<Feature> features);
 
   @Query("SELECT * FROM Feature")
   List<Feature> select();
 
-  @Query("SELECT * FROM Feature WHERE time = '2018-11-11' ")
-  List<Feature> selectToday();
+  @Query("SELECT * FROM Feature WHERE time >= (:time - 2592000000)")
+  List<Feature> select30(long time);
 
-
-  @Query("SELECT * FROM Feature WHERE JULIANDAY('now') - JULIANDAY(`time`) <= :numDays ORDER BY time")
-  List<Feature> selectRecent(int numDays);
+  @Query("SELECT * FROM Feature WHERE time >= (:time - 86400000) ")
+  List<Feature> select24(long time);
 
   @Delete
   int delete(Feature feature);

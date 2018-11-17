@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,10 +27,8 @@ public class FilterFragment extends Fragment {
     View view = inflater.inflate(R.layout.filter_fragment, container, false);
     TextView text = view.findViewById(R.id.today);
     Button todayButton = view.findViewById(R.id.today_button);
-    todayButton.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-      }
+    todayButton.setOnClickListener(v -> {
+      //TODO HANDLE BUTTON
     });
     return view;
   }

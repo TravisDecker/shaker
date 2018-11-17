@@ -6,8 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.shaker.shaker.R;
 import com.shaker.shaker.model.entity.Properties;
 import java.util.Date;
@@ -33,10 +35,32 @@ public class ShakeFragment extends Fragment {
     TextView placeText = view.findViewById(R.id.place_text);
     TextView timeText = view.findViewById(R.id.time_text);
     TextView statusText = view.findViewById(R.id.status_text);
+    TextView magText = view.findViewById(R.id.mag_text);
+    TextView nst = view.findViewById(R.id.nst);
+    nst.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Toast.makeText(getActivity(), "yup", Toast.LENGTH_LONG).show();
+        //TODO inform user of nst
+      }
+    });
+    TextView nstText = view.findViewById(R.id.nst_text);
+    TextView alertText = view.findViewById(R.id.alert_text);
     TextView urlText = view.findViewById(R.id.url_text);
     placeText.setText(properties.getPlace());
     timeText.setText(new Date(properties.getTime()).toString());
     statusText.setText(properties.getStatus());
+    magText.setText(properties.getMag().toString());
+    if (properties.getNst() == null) {
+      nstText.setText("N/A");
+    } else {
+      nstText.setText(properties.getNst().toString());
+    }
+    if (properties.getAlert() == null) {
+      alertText.setText("None");
+    } else {
+      alertText.setText(properties.getAlert());
+    }
     urlText.setText(properties.getUrl());
     return view;
   }

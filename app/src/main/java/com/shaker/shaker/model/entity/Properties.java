@@ -207,12 +207,27 @@ public class Properties implements Parcelable {
     dest.writeLong(updated);
     dest.writeString(url);
     dest.writeString(detail);
-    dest.writeLong(felt);
-    dest.writeString(alert);
+    if (felt == null) {
+      felt = 0l;
+      dest.writeLong(felt);
+    } else {
+      dest.writeLong(felt);
+    }
+    if (alert == null) {
+      alert = "N/A";
+      dest.writeString(alert);
+    } else {
+      dest.writeString(alert);
+    }
     dest.writeString(status);
     dest.writeString(net);
     dest.writeString(ids);
-    dest.writeLong(nst);
+    if (nst == null) {
+      nst = 0l;
+      dest.writeLong(nst);
+    } else {
+      dest.writeLong(nst);
+    }
     dest.writeString(title);
   }
 }

@@ -18,7 +18,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,9 +43,14 @@ import com.shaker.shaker.model.entity.Shake;
 import com.shaker.shaker.service.ShakerService;
 import com.shaker.shaker.view.FilterFragment;
 import com.shaker.shaker.view.ListFragment;
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -53,11 +62,14 @@ public class MainActivity extends AppCompatActivity
 
   private SupportMapFragment mapFragment;
   private ShakerService service;
-  private QuakeTask quakeTask;
+  private ShakeTask mShakeTask;
   private List<Feature> features;
-  private ProgressBar spinner;
+  private ProgressBar progressbar;
+  private Spinner spinner;
   DataBase database;
   Context context;
+  private GoogleMap map;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +77,16 @@ public class MainActivity extends AppCompatActivity
     setupUI();
     setupService();
     database = DataBase.getInstance(this);
-    quakeTask = new QuakeTask();
-    quakeTask.execute();
-    Toast.makeText(this, "Please wait while we connect...", Toast.LENGTH_LONG).show();
+    queryShakes(new QueryCallback() {
+      @Override
+      public void consume(List features) {
+        MainActivity.this.features = new ArrayList<>();
+        MainActivity.this.features.addAll(features);
+        MainActivity.this.setupMap();
+      }
+    }, "24 Hours");
+    mShakeTask = new ShakeTask();
+    mShakeTask.execute();
   }
 
   private void setupService() {
@@ -81,19 +100,6 @@ public class MainActivity extends AppCompatActivity
         .build();
     service = retrofit.create(ShakerService.class);
   }
-
-  private void setupMap() {
-    Toast.makeText(this, "Connected to server...", Toast.LENGTH_LONG).show();
-    mapFragment = (SupportMapFragment) getSupportFragmentManager()
-        .findFragmentById(R.id.map);
-    if (mapFragment == null) {
-      mapFragment = new SupportMapFragment();
-      getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment)
-          .commit();
-    }
-    mapFragment.getMapAsync(this);
-  }
-
   private void setupUI() {
     setContentView(R.layout.activity_main);
     Toolbar toolbar = findViewById(R.id.toolbar);
@@ -108,12 +114,22 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView = findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
-    spinner = findViewById(R.id.spinner);
-    spinner.setVisibility(View.GONE);
+    progressbar = findViewById(R.id.progress_bar);
+    progressbar.setVisibility(View.GONE);
+
+
+
   }
 
-  public void queryShakes(QueryCallback callback) {
-    new QueryTask(callback).execute();
+  private void setupMap() {
+    mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        .findFragmentById(R.id.map);
+    if (mapFragment == null) {
+      mapFragment = new SupportMapFragment();
+      getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mapFragment)
+          .commit();
+    }
+    mapFragment.getMapAsync(this);
   }
 
   private void switchFragment(Fragment fragment, boolean useStack, String varient) {
@@ -127,7 +143,6 @@ public class MainActivity extends AppCompatActivity
     if (useStack) {
       transaction.addToBackStack(tag);
     }
-    transaction.setTransition(4097);
     transaction.commit();
   }
 
@@ -147,7 +162,7 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void onMapReady(GoogleMap googleMap) {
-    GoogleMap map = googleMap;
+    map = googleMap;
     try {
       // Customise the styling of the base map using a JSON object defined
       // in a raw resource file.
@@ -160,20 +175,6 @@ public class MainActivity extends AppCompatActivity
     } catch (Resources.NotFoundException e) {
       Log.e(TAG, "Can't find style. Error: ", e);
     }
-    int i;
-    if (features != null) {
-      for (i = 0; i < features.size(); i++) {
-        Feature feature = features.get(i);
-        Geometry geometry = feature.getGeometry();
-        Properties properties = feature.getProperties();
-        LatLng Shake = new LatLng(geometry.getLatitude(), geometry.getLongitude());
-        map.addMarker(new MarkerOptions()
-            .position(Shake)
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ring))
-            .snippet(properties.getTitle())
-            .title(new Date(properties.getTime()).toString()));
-      }
-    }
     LatLng Albuquerque = new LatLng(35.0844, -106.6504);
     map.addMarker(new MarkerOptions()
         .position(Albuquerque)
@@ -181,7 +182,38 @@ public class MainActivity extends AppCompatActivity
         .title(getString(R.string.abq_pin))
         .snippet(getString(R.string.shaker_made_here)));
     map.moveCamera(CameraUpdateFactory.newLatLng(Albuquerque));
-    spinner.setVisibility(View.GONE);
+    addPins(map);
+  }
+
+  public void addPins(GoogleMap map) {
+    if (map != null) {
+      map.clear();
+      int i;
+      if (features != null) {
+        for (i = 0; i < features.size(); i++) {
+          Feature feature = features.get(i);
+          Geometry geometry = feature.getGeometry();
+          Properties properties = feature.getProperties();
+          LatLng Shake = new LatLng(geometry.getLatitude(), geometry.getLongitude());
+          map.addMarker(new MarkerOptions()
+              .position(Shake)
+              .icon(BitmapDescriptorFactory.fromResource(R.drawable.ring))
+              .snippet(properties.getTitle())
+              .title(new Date(properties.getTime()).toString()));
+        }
+      }
+    }
+  }
+
+  private long getTime() {
+    GregorianCalendar calendar = new GregorianCalendar();
+    calendar.set(Calendar.HOUR_OF_DAY, 0);
+    calendar.set(Calendar.MINUTE, 0);
+    calendar.set(Calendar.SECOND, 0);
+    calendar.set(Calendar.MILLISECOND, 0);
+    calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+    long timestampStartDay = calendar.getTimeInMillis();
+    return timestampStartDay;
   }
 
   @Override
@@ -198,6 +230,35 @@ public class MainActivity extends AppCompatActivity
   public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.main, menu);
+    MenuItem item = menu.findItem(R.id.filter_spinner);
+    MainActivity.this.spinner = (Spinner) item.getActionView();
+    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        R.array.spinner_list_item_array, android.R.layout.simple_spinner_item);
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    spinner.setAdapter(adapter);
+    spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+      @Override
+      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(MainActivity.this, "Applying Filter...", Toast.LENGTH_LONG).show();
+        queryShakes(features -> {
+          // MainActivity.this.features = new ArrayList<>();
+          MainActivity.this.features.clear();
+          MainActivity.this.features.addAll(features);
+          addPins(MainActivity.this.map);
+        }, spinner.getSelectedItem().toString());
+        if (ListFragment.fragment != null) {
+          if (ListFragment.fragment.isVisible()) {
+            Fragment fragment = ListFragment.newInstance(null);
+            ((ListFragment) fragment).updateList(features);
+          }
+        }
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> parent) {
+        //Do Nothing
+      }
+    });
     return true;
   }
 
@@ -222,7 +283,7 @@ public class MainActivity extends AppCompatActivity
     if (id == R.id.nav_map) {
       switchFragment(mapFragment, true, null);
     } else if (id == R.id.nav_list) {
-      switchFragment(ListFragment.newInstance(), true, null);
+      switchFragment(ListFragment.newInstance(spinner.getSelectedItem().toString()), true, null);
       Toast.makeText(this, "List View", Toast.LENGTH_LONG).show();
     } else if (id == R.id.nav_create) {
       //TODO handle nav create
@@ -238,12 +299,16 @@ public class MainActivity extends AppCompatActivity
     return true;
   }
 
+  public void queryShakes(QueryCallback callback, String filter) {
+    new QueryTask(callback).execute(filter);
+  }
+
   public interface QueryCallback<T> {
 
     void consume(List<T> features);
   }
 
-  private class QueryTask extends AsyncTask<Void, Void, List<Feature>> {
+  private class QueryTask extends AsyncTask<String, Void, List<Feature>> {
 
     private QueryCallback callback;
 
@@ -259,51 +324,81 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected List<Feature> doInBackground(Void... voids) {
+    protected List<Feature> doInBackground(String... strings) {
+      List<Feature> features = new ArrayList<>();
+      String filter = strings[0];
       DataBase.getInstance(context);
-      return database.getFeatureDao().select();
+      switch (filter) {
+        case "None":
+          features = (database.getFeatureDao().select());
+          break;
+        case "24 Hours":
+          features = (database.getFeatureDao().select24(getTime()));
+          break;
+        case "30 Days":
+          features = (database.getFeatureDao().select30(getTime()));
+      }
+
+      return features;
+
     }
   }
 
-  public class QuakeTask extends AsyncTask<Void, Void, List<Feature>> {
+  public class ShakeTask extends AsyncTask<Void, Void, List<Feature>> {
+
+    private Exception exception;
+
 
     @Override
     protected void onPreExecute() {
-      spinner.setVisibility(View.VISIBLE);
+      progressbar.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected List<Feature> doInBackground(Void... voids) {
       List<Feature> features = null;
+
       try {
         Response<Shake> response = service.get().execute();
         Shake shake = response.body();
         features = shake.getFeatures();
+      } catch (UnknownHostException e) {
+        Log.d(TAG, e.getLocalizedMessage());
+        exception = e;
+        cancel(true);
+      } catch (IOException e) {
+        Log.d(TAG, e.getLocalizedMessage());
+        exception = e;
+        cancel(true);
+      }
+      try {
         DataBase.convertCords(features);
         database.getFeatureDao().insert(features);
       } catch (Exception e) {
-        Log.d(TAG, e.getLocalizedMessage() + "caught exception ");
+        Log.d(TAG, e.getLocalizedMessage());
       }
       return features;
     }
 
     @Override
     protected void onPostExecute(List<Feature> features) {
-      queryShakes(new QueryCallback() {
-        @Override
-        public void consume(List features) {
-          MainActivity.this.features = new ArrayList<>();
-          MainActivity.this.features.addAll(features);
-          setupMap();
-        }
-      });
+      addPins(map);
     }
 
     @Override
     protected void onCancelled() {
       super.onCancelled();
       Log.d(TAG, "onCancelled called");
+      if (exception instanceof UnknownHostException) {
+        Toast.makeText(MainActivity.this, "Unable to connect to server.. check internet connection",
+            Toast.LENGTH_LONG).show();
+      } else {
+        //FIXME do what?
+      }
+
     }
   }
 }
+
+
 

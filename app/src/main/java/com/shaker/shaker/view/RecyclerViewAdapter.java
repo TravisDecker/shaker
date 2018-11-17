@@ -9,7 +9,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.shaker.shaker.R;
@@ -56,24 +55,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     TextView placeText;
     TextView timeText;
     TextView magText;
+    TextView depthText;
     Properties properties;
 
     ViewHolder(@NonNull View itemView) {
       super(itemView);
       card = itemView.findViewById(R.id.shake_card);
-      card.setOnClickListener(new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          FragmentManager manager = fragment.getFragmentManager();
-          FragmentTransaction transaction = manager.beginTransaction();
-          transaction.add(R.id.fragment_container, ShakeFragment.newInstance(properties), null);
-          transaction.addToBackStack(null);
-          transaction.commit();
-        }
+      card.setOnClickListener((view) -> {
+        FragmentManager manager = fragment.getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.fragment_container, ShakeFragment.newInstance(properties), null);
+        transaction.addToBackStack(null);
+        transaction.commit();
       });
       placeText = itemView.findViewById(R.id.place_text);
       timeText = itemView.findViewById(R.id.time_text);
       magText = itemView.findViewById(R.id.mag_text);
+      depthText = itemView.findViewById(R.id.depth_text);
     }
 
     void bind(Feature feature) {
@@ -83,6 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
       placeText.setText(properties.getPlace());
       timeText.setText(new Date(properties.getTime()).toString());
       magText.setText("Magnitude " + properties.getMag().toString());
+      depthText.setText("Depth: " + geometry.getDepth().toString() + "KM");
       //TODO heed this waring if possible
     }
   }

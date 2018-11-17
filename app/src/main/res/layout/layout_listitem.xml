@@ -20,21 +20,28 @@
 
     <TextView
       android:id="@+id/place_text"
-      style="@style/cardStyle"
+      style="@style/smallCardStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"/>
 
     <TextView
       android:id="@+id/time_text"
-      style="@style/cardStyle"
+      style="@style/smallCardStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="top|center"/>
 
     <TextView
       android:id="@+id/mag_text"
-      style="@style/cardStyle"
+      style="@style/smallCardStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|left"/>
+
+    <TextView
+      android:id="@+id/depth_text"
+      style="@style/smallCardStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|right"/>
