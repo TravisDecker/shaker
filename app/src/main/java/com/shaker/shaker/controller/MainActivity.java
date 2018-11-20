@@ -66,9 +66,7 @@ public class MainActivity extends AppCompatActivity
   private ProgressBar progressbar;
   private Spinner spinner;
   private DataBase database;
-  private Context context;
   private GoogleMap map;
-
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +74,10 @@ public class MainActivity extends AppCompatActivity
     setupUI();
     setupService();
     database = DataBase.getInstance(this);
-    queryShakes(new QueryCallback() {
-      @Override
-      public void consume(List features) {
-        MainActivity.this.features = new ArrayList<>();
-        MainActivity.this.features.addAll(features);
-        MainActivity.this.setupMap();
-      }
+    queryShakes(features -> {
+      MainActivity.this.features = new ArrayList<>();
+      MainActivity.this.features.addAll(features);
+      MainActivity.this.setupMap();
     }, getFromSharedPrefs("string"));
     ShakeTask shakeTask = new ShakeTask();
     shakeTask.execute();
@@ -91,7 +86,6 @@ public class MainActivity extends AppCompatActivity
   private void setupService() {
     Gson gson = new GsonBuilder()
         .excludeFieldsWithoutExposeAnnotation()
-        // TODO set date format for date specific requests
         .create();
     Retrofit retrofit = new Retrofit.Builder()
         .baseUrl(getString(R.string.base_url))
@@ -407,7 +401,7 @@ public class MainActivity extends AppCompatActivity
     protected List<Feature> doInBackground(String... strings) {
       List<Feature> features = new ArrayList<>();
       String filter = strings[0];
-      DataBase.getInstance(context);
+      DataBase.getInstance(MainActivity.this);
       switch (filter) {
         case "12 Hours":
           features = (database.getFeatureDao().select12(getTime()));
