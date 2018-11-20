@@ -196,13 +196,6 @@ public class MainActivity extends AppCompatActivity
     } catch (Resources.NotFoundException e) {
       Log.e(TAG, "Can't find style. Error: ", e);
     }
-    LatLng Albuquerque = new LatLng(35.0844, -106.6504);
-    map.addMarker(new MarkerOptions()
-        .position(Albuquerque)
-        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-        .title(getString(R.string.abq_pin))
-        .snippet(getString(R.string.shaker_made_here)));
-    map.moveCamera(CameraUpdateFactory.newLatLng(Albuquerque));
     addPins(map);
   }
 
@@ -223,6 +216,13 @@ public class MainActivity extends AppCompatActivity
               .title(new Date(properties.getTime()).toString()));
         }
       }
+      LatLng Albuquerque = new LatLng(35.0844, -106.6504);
+      map.addMarker(new MarkerOptions()
+          .position(Albuquerque)
+          .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+          .title(getString(R.string.abq_pin))
+          .snippet(getString(R.string.shaker_made_here)));
+      map.moveCamera(CameraUpdateFactory.newLatLng(Albuquerque));
     }
   }
 
