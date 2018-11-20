@@ -42,6 +42,7 @@ import com.shaker.shaker.model.entity.Geometry;
 import com.shaker.shaker.model.entity.Properties;
 import com.shaker.shaker.model.entity.Shake;
 import com.shaker.shaker.service.ShakerService;
+import com.shaker.shaker.view.AboutPageFragment;
 import com.shaker.shaker.view.ListFragment;
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -302,7 +303,7 @@ public class MainActivity extends AppCompatActivity
     } else if (id == R.id.nav_create) {
       //TODO handle nav create
     } else if (id == R.id.nav_about) {
-      //TODO handle nav about
+      addFragment(AboutPageFragment.newInstance(), true, null);
     }
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
