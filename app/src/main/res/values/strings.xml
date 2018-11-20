@@ -11,6 +11,8 @@
   <string name="base_url">https://earthquake.usgs.gov/fdsnws/event/1/</string>
   <string name="abq_pin">Albuquerque</string>
   <string name="shaker_made_here">Shaker was made in Albuquerque</string>
+  <string name="string_key">FILTER_KEY</string>
+  <string name="int_key">INT_KEY</string>
 
 
 </resources>

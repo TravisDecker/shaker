@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import com.shaker.shaker.R;
 import com.shaker.shaker.controller.MainActivity;
 import com.shaker.shaker.controller.MainActivity.QueryCallback;
@@ -27,8 +26,6 @@ public class ListFragment extends Fragment {
 
   private RecyclerView.Adapter adapter;
   private List<Feature> features;
-  private List<Feature> ggg;
-
 
   public static ListFragment newInstance(String filter) {
     if (fragment == null) {
@@ -64,7 +61,5 @@ public class ListFragment extends Fragment {
     ListFragment.this.features.clear();
     ListFragment.this.features.addAll(features);
     adapter.notifyDataSetChanged();
-    Toast.makeText(getActivity(), Integer.toString(features.size()) + " Events", Toast.LENGTH_LONG)
-        .show();
   }
 }

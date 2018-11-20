@@ -1,6 +1,7 @@
 package com.shaker.shaker.controller;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,7 +42,6 @@ import com.shaker.shaker.model.entity.Geometry;
 import com.shaker.shaker.model.entity.Properties;
 import com.shaker.shaker.model.entity.Shake;
 import com.shaker.shaker.service.ShakerService;
-import com.shaker.shaker.view.FilterFragment;
 import com.shaker.shaker.view.ListFragment;
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -62,12 +62,11 @@ public class MainActivity extends AppCompatActivity
 
   private SupportMapFragment mapFragment;
   private ShakerService service;
-  private ShakeTask mShakeTask;
   private List<Feature> features;
   private ProgressBar progressbar;
   private Spinner spinner;
-  DataBase database;
-  Context context;
+  private DataBase database;
+  private Context context;
   private GoogleMap map;
 
 
@@ -84,9 +83,9 @@ public class MainActivity extends AppCompatActivity
         MainActivity.this.features.addAll(features);
         MainActivity.this.setupMap();
       }
-    }, "24 Hours");
-    mShakeTask = new ShakeTask();
-    mShakeTask.execute();
+    }, getFromSharedPrefs("string"));
+    ShakeTask shakeTask = new ShakeTask();
+    shakeTask.execute();
   }
 
   private void setupService() {
@@ -100,6 +99,7 @@ public class MainActivity extends AppCompatActivity
         .build();
     service = retrofit.create(ShakerService.class);
   }
+
   private void setupUI() {
     setContentView(R.layout.activity_main);
     Toolbar toolbar = findViewById(R.id.toolbar);
@@ -116,9 +116,6 @@ public class MainActivity extends AppCompatActivity
 
     progressbar = findViewById(R.id.progress_bar);
     progressbar.setVisibility(View.GONE);
-
-
-
   }
 
   private void setupMap() {
@@ -130,6 +127,30 @@ public class MainActivity extends AppCompatActivity
           .commit();
     }
     mapFragment.getMapAsync(this);
+  }
+
+  private void saveToSharedPref(String filter, int filterId) {
+    SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putString(getString(R.string.string_key), filter);
+    editor.putInt(getString(R.string.int_key), filterId);
+    editor.apply();
+  }
+
+  private String getFromSharedPrefs(String variant) {
+    SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+    String result = "";
+    switch (variant) {
+      case "int":
+        int temp;
+        temp = sharedPreferences.getInt(getString(R.string.int_key), 0);
+        result = Integer.toString(temp);
+        break;
+      case "string":
+        result = sharedPreferences.getString(getString(R.string.string_key), "12 Hours");
+        break;
+    }
+    return result;
   }
 
   private void switchFragment(Fragment fragment, boolean useStack, String varient) {
@@ -228,7 +249,6 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.main, menu);
     MenuItem item = menu.findItem(R.id.filter_spinner);
     MainActivity.this.spinner = (Spinner) item.getActionView();
@@ -236,10 +256,13 @@ public class MainActivity extends AppCompatActivity
         R.array.spinner_list_item_array, android.R.layout.simple_spinner_item);
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     spinner.setAdapter(adapter);
+
+    String selection = getFromSharedPrefs("int");
+    spinner.setSelection(Integer.parseInt(selection));
     spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(MainActivity.this, "Applying Filter...", Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this, "Applying Filter...", Toast.LENGTH_SHORT).show();
         queryShakes(features -> {
           // MainActivity.this.features = new ArrayList<>();
           MainActivity.this.features.clear();
@@ -253,10 +276,9 @@ public class MainActivity extends AppCompatActivity
           }
         }
       }
-
       @Override
       public void onNothingSelected(AdapterView<?> parent) {
-        //Do Nothing
+        //Do Nothing, Spinner selects item on start.
       }
     });
     return true;
@@ -277,22 +299,16 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
-    // Handle navigation view item clicks here.
     String varient = null;
     int id = item.getItemId();
     if (id == R.id.nav_map) {
       switchFragment(mapFragment, true, null);
     } else if (id == R.id.nav_list) {
       switchFragment(ListFragment.newInstance(spinner.getSelectedItem().toString()), true, null);
-      Toast.makeText(this, "List View", Toast.LENGTH_LONG).show();
     } else if (id == R.id.nav_create) {
       //TODO handle nav create
-    } else if (id == R.id.nav_filter) {
-      addFragment(FilterFragment.newInstance(), true, null);
-    } else if (id == R.id.filter_date) {
-
-    } else if (id == R.id.filter_mag) {
-
+    } else if (id == R.id.nav_about) {
+      //TODO handle nav about
     }
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
@@ -308,40 +324,10 @@ public class MainActivity extends AppCompatActivity
     void consume(List<T> features);
   }
 
-  private class QueryTask extends AsyncTask<String, Void, List<Feature>> {
-
-    private QueryCallback callback;
-
-    public QueryTask(QueryCallback callback) {
-      this.callback = callback;
-    }
-
-    @Override
-    protected void onPostExecute(List<Feature> features) {
-      if (callback != null) {
-        callback.consume(features);
-      }
-    }
-
-    @Override
-    protected List<Feature> doInBackground(String... strings) {
-      List<Feature> features = new ArrayList<>();
-      String filter = strings[0];
-      DataBase.getInstance(context);
-      switch (filter) {
-        case "None":
-          features = (database.getFeatureDao().select());
-          break;
-        case "24 Hours":
-          features = (database.getFeatureDao().select24(getTime()));
-          break;
-        case "30 Days":
-          features = (database.getFeatureDao().select30(getTime()));
-      }
-
-      return features;
-
-    }
+  @Override
+  protected void onDestroy() {
+    saveToSharedPref(spinner.getSelectedItem().toString(), spinner.getSelectedItemPosition());
+    super.onDestroy();
   }
 
   public class ShakeTask extends AsyncTask<Void, Void, List<Feature>> {
@@ -396,6 +382,47 @@ public class MainActivity extends AppCompatActivity
         //FIXME do what?
       }
 
+    }
+  }
+
+  private class QueryTask extends AsyncTask<String, Void, List<Feature>> {
+
+    private QueryCallback callback;
+
+    public QueryTask(QueryCallback callback) {
+      this.callback = callback;
+    }
+
+    @Override
+    protected void onPostExecute(List<Feature> features) {
+      if (callback != null) {
+        callback.consume(features);
+        Toast.makeText(MainActivity.this, Integer.toString(features.size()) + " Events",
+            Toast.LENGTH_LONG)
+            .show();
+      }
+    }
+
+    @Override
+    protected List<Feature> doInBackground(String... strings) {
+      List<Feature> features = new ArrayList<>();
+      String filter = strings[0];
+      DataBase.getInstance(context);
+      switch (filter) {
+        case "12 Hours":
+          features = (database.getFeatureDao().select12(getTime()));
+          break;
+        case "24 Hours":
+          features = (database.getFeatureDao().select24(getTime()));
+          break;
+        case "30 Days":
+          features = (database.getFeatureDao().select30(getTime()));
+          break;
+        case "None":
+          features = (database.getFeatureDao().select());
+          break;
+      }
+      return features;
     }
   }
 }

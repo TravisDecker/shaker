@@ -3,7 +3,9 @@ package com.shaker.shaker.view;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +28,13 @@ public class ShakeFragment extends Fragment {
     return fragment;
   }
 
+  /**
+   *
+   * @param inflater
+   * @param container
+   * @param savedInstanceState
+   * @return
+   */
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -41,7 +50,7 @@ public class ShakeFragment extends Fragment {
       @Override
       public void onClick(View v) {
         Toast.makeText(getActivity(), "yup", Toast.LENGTH_LONG).show();
-        //TODO inform user of nst
+        Snackbar.make(v, "NST SELECTED", Snackbar.LENGTH_LONG).show();
       }
     });
     TextView nstText = view.findViewById(R.id.nst_text);
@@ -61,7 +70,8 @@ public class ShakeFragment extends Fragment {
     } else {
       alertText.setText(properties.getAlert());
     }
-    urlText.setText(properties.getUrl());
+    String html = "<a href='" + properties.getUrl() + "'> Link </a>";
+    urlText.setText(Html.fromHtml(html));
     return view;
   }
 }

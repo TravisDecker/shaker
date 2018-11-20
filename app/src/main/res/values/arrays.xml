@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="spinner_list_item_array">
-    <item>None</item>
+    <item>12 Hours</item>
     <item>24 Hours</item>
     <item>30 Days</item>
+    <item>None</item>
   </string-array>
 </resources>

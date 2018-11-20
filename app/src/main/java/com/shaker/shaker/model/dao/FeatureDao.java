@@ -23,6 +23,9 @@ public interface FeatureDao {
   @Query("SELECT * FROM Feature WHERE time >= (:time - 86400000) ")
   List<Feature> select24(long time);
 
+  @Query("SELECT * FROM Feature WHERE time >= (:time - 21600000) ")
+  List<Feature> select12(long time);
+
   @Delete
   int delete(Feature feature);
 
