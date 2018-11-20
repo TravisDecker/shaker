@@ -1,17 +1,19 @@
 package com.shaker.shaker.view;
 
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.shaker.shaker.R;
 import com.shaker.shaker.model.entity.Properties;
 import java.util.Date;
@@ -28,13 +30,6 @@ public class ShakeFragment extends Fragment {
     return fragment;
   }
 
-  /**
-   *
-   * @param inflater
-   * @param container
-   * @param savedInstanceState
-   * @return
-   */
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -49,7 +44,6 @@ public class ShakeFragment extends Fragment {
     nst.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        Toast.makeText(getActivity(), "yup", Toast.LENGTH_LONG).show();
         Snackbar.make(v, "NST SELECTED", Snackbar.LENGTH_LONG).show();
       }
     });
@@ -70,8 +64,14 @@ public class ShakeFragment extends Fragment {
     } else {
       alertText.setText(properties.getAlert());
     }
+
     String html = "<a href='" + properties.getUrl() + "'> Link </a>";
-    urlText.setText(Html.fromHtml(html));
+    if (VERSION.SDK_INT < VERSION_CODES.N) {
+      urlText.setText(Html.fromHtml(html));
+    } else {
+      urlText.setText(Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT));
+    }
+    urlText.setMovementMethod(LinkMovementMethod.getInstance());
     return view;
   }
 }
