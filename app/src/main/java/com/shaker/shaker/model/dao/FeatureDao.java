@@ -1,7 +1,6 @@
 package com.shaker.shaker.model.dao;
 
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -26,11 +25,7 @@ public interface FeatureDao {
   @Query("SELECT * FROM Feature WHERE time >= (:time - 21600000) ")
   List<Feature> select12(long time);
 
-  @Delete
-  int delete(Feature feature);
-
   @Query("DELETE FROM Feature")
   int nuke();
 
 }
-//Todo update queries

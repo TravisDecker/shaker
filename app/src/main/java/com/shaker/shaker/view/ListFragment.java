@@ -14,10 +14,6 @@ import com.shaker.shaker.model.entity.Feature;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass. Use the {@link ListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ListFragment extends Fragment {
 
   private static final String KEY = "key";

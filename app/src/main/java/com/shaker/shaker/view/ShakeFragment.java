@@ -44,7 +44,9 @@ public class ShakeFragment extends Fragment {
     nst.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        Snackbar.make(v, "NST SELECTED", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(v,
+            "Number of seismic stations which reported P- and S-arrival times for this earthquake.",
+            Snackbar.LENGTH_LONG).show();
       }
     });
     TextView nstText = view.findViewById(R.id.nst_text);
