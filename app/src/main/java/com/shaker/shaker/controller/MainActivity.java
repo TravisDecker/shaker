@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity
       LatLng Albuquerque = new LatLng(35.0844, -106.6504);
       map.addMarker(new MarkerOptions()
           .position(Albuquerque)
-          .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+          .icon(BitmapDescriptorFactory.fromResource(R.drawable.abqpin))
           .title(getString(R.string.abq_pin))
           .snippet(getString(R.string.shaker_made_here)));
       map.moveCamera(CameraUpdateFactory.newLatLng(Albuquerque));
