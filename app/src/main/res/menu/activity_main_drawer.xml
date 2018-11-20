@@ -18,7 +18,9 @@
       android:title="Create Pin"/>
   </group>
 
-  <group android:checkableBehavior="single">
+  <group
+    android:id="@+id/info_menu"
+    android:checkableBehavior="single">
     <item
       android:id="@+id/nav_about"
       android:icon="@drawable/ic_info"
