@@ -74,7 +74,16 @@ public class ShakeFragment extends Fragment {
         .make(v, "Typically “green”, “yellow”, “orange”, or “red” see USGS site for more info.",
             Snackbar.LENGTH_LONG).show());
 
-
+    TextView feltText = view.findViewById(R.id.felt_text);
+    if (properties.getFelt() != null) {
+      feltText.setText(properties.getFelt().toString());
+    } else {
+      feltText.setText("None");
+    }
+    TextView felt = view.findViewById(R.id.felt);
+    felt.setOnClickListener(v -> Snackbar
+        .make(v, "The total number of felt reports submitted to the DYFI? system.",
+            Snackbar.LENGTH_LONG).show());
 
 
     TextView urlText = view.findViewById(R.id.url_text);

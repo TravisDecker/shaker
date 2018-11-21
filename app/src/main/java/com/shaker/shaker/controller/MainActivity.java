@@ -271,6 +271,7 @@ public class MainActivity extends AppCompatActivity
           }
         }
       }
+
       @Override
       public void onNothingSelected(AdapterView<?> parent) {
         //Do Nothing, Spinner selects item on start.
@@ -300,8 +301,6 @@ public class MainActivity extends AppCompatActivity
       switchFragment(mapFragment, true, null);
     } else if (id == R.id.nav_list) {
       switchFragment(ListFragment.newInstance(spinner.getSelectedItem().toString()), true, null);
-    } else if (id == R.id.nav_create) {
-      //TODO handle nav create
     } else if (id == R.id.nav_about) {
       addFragment(AboutPageFragment.newInstance(), true, null);
     }
