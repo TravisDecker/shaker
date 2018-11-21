@@ -39,10 +39,6 @@ public class Properties implements Parcelable {
   @Expose
   private String url;
 
-  @SerializedName("detail")
-  @Expose
-  private String detail;
-
   @SerializedName("felt")
   @Expose
   private Long felt;
@@ -109,14 +105,6 @@ public class Properties implements Parcelable {
 
   public void setUrl(String url) {
     this.url = url;
-  }
-
-  public String getDetail() {
-    return detail;
-  }
-
-  public void setDetail(String detail) {
-    this.detail = detail;
   }
 
   public Long getFelt() {
@@ -189,7 +177,6 @@ public class Properties implements Parcelable {
     in.readLong();
     in.readLong();
     in.readString();
-    in.readString();
     in.readLong();
     in.readString();
     in.readString();
@@ -206,7 +193,6 @@ public class Properties implements Parcelable {
     dest.writeLong(time);
     dest.writeLong(updated);
     dest.writeString(url);
-    dest.writeString(detail);
     if (felt == null) {
       felt = 0l;
       dest.writeLong(felt);
