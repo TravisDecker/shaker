@@ -80,9 +80,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
       properties = feature.getProperties();
       placeText.setText(properties.getPlace());
       timeText.setText(new Date(properties.getTime()).toString());
-      magText.setText("Magnitude " + properties.getMag().toString());
-      depthText.setText("Depth: " + geometry.getDepth().toString() + "KM");
-      //TODO heed this waring if possible
+      String mag = context.getString(R.string.magnitude) + properties.getMag().toString();
+      magText.setText(mag);
+      String depth =
+          context.getString(R.string.depth) + geometry.getDepth().toString() + context.getString(
+              R.string.km);
+      depthText.setText(depth);
     }
   }
 }

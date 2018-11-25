@@ -46,7 +46,7 @@ public class ShakeFragment extends Fragment {
     statusText.setText(properties.getStatus());
     TextView status = view.findViewById(R.id.status);
     status.setOnClickListener(v -> Snackbar.make(v,
-        " Automatic events are posted by automatic systems, Reviewed events have been looked at by a human.",
+        R.string.status_snackbar,
         Snackbar.LENGTH_LONG).show());
 
     TextView magText = view.findViewById(R.id.mag_text);
@@ -55,39 +55,40 @@ public class ShakeFragment extends Fragment {
     TextView nstText = view.findViewById(R.id.nst_text);
     TextView nst = view.findViewById(R.id.nst);
     if (properties.getNst() == null) {
-      nstText.setText("N/A");
+      nstText.setText(R.string.nst_default);
     } else {
       nstText.setText(properties.getNst().toString());
     }
     nst.setOnClickListener(v -> Snackbar.make(v,
-        "Number of seismic stations which reported P- and S-arrival times for this earthquake.",
+        R.string.nst_snackbar,
         Snackbar.LENGTH_LONG).show());
 
     TextView alertText = view.findViewById(R.id.alert_text);
     TextView alert = view.findViewById(R.id.alert);
     if (properties.getAlert() == null) {
-      alertText.setText("None");
+      alertText.setText(R.string.alert_default);
     } else {
       alertText.setText(properties.getAlert());
     }
     alert.setOnClickListener(v -> Snackbar
-        .make(v, "Typically “green”, “yellow”, “orange”, or “red” see USGS site for more info.",
+        .make(v, R.string.alert_snackbar,
             Snackbar.LENGTH_LONG).show());
 
     TextView feltText = view.findViewById(R.id.felt_text);
     if (properties.getFelt() != null) {
       feltText.setText(properties.getFelt().toString());
     } else {
-      feltText.setText("None");
+      feltText.setText(R.string.felt_default);
     }
     TextView felt = view.findViewById(R.id.felt);
     felt.setOnClickListener(v -> Snackbar
-        .make(v, "The total number of felt reports submitted to the DYFI? system.",
+        .make(v, R.string.felt_snackbar,
             Snackbar.LENGTH_LONG).show());
 
 
     TextView urlText = view.findViewById(R.id.url_text);
-    String html = "<a href='" + properties.getUrl() + "'> Link </a>";
+    String html =
+        getString(R.string.htlm_begin) + properties.getUrl() + getString(R.string.html_end);
     if (VERSION.SDK_INT < VERSION_CODES.N) {
       urlText.setText(Html.fromHtml(html));
     } else {

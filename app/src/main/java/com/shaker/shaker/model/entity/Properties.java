@@ -194,7 +194,7 @@ public class Properties implements Parcelable {
     dest.writeLong(updated);
     dest.writeString(url);
     if (felt == null) {
-      felt = 0l;
+      felt = 0L;
       dest.writeLong(felt);
     } else {
       dest.writeLong(felt);
@@ -209,7 +209,7 @@ public class Properties implements Parcelable {
     dest.writeString(net);
     dest.writeString(ids);
     if (nst == null) {
-      nst = 0l;
+      nst = 0L;
       dest.writeLong(nst);
     } else {
       dest.writeLong(nst);

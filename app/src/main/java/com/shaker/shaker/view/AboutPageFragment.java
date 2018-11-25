@@ -32,7 +32,7 @@ public class AboutPageFragment extends Fragment {
     View view = inflater.inflate(R.layout.about_page_fragment, container, false);
 
     TextView usgsLink = view.findViewById(R.id.usgs_link);
-    String usgsHTML = "<a href='https://earthquake.usgs.gov/'> USGS </a>";
+    String usgsHTML = getString(R.string.usgs_link);
     if (VERSION.SDK_INT < VERSION_CODES.N) {
       usgsLink.setText(Html.fromHtml(usgsHTML));
     } else {
@@ -41,7 +41,7 @@ public class AboutPageFragment extends Fragment {
     usgsLink.setMovementMethod(LinkMovementMethod.getInstance());
 
     TextView licenseLink = view.findViewById(R.id.lic_link);
-    String licHTML = "<a href='https://www.apache.org/licenses/LICENSE-2.0'> LICENSE </a>";
+    String licHTML = getString(R.string.lic_link);
     if (VERSION.SDK_INT < VERSION_CODES.N) {
       licenseLink.setText(Html.fromHtml(licHTML));
     } else {

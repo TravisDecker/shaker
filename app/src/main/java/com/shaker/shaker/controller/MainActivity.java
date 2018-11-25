@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
       MainActivity.this.features = new ArrayList<>();
       MainActivity.this.features.addAll(features);
       MainActivity.this.setupMap();
-    }, getFromSharedPrefs("string"));
+    }, getFromSharedPrefs(getString(R.string.sharedpref_string)));
     ShakeTask shakeTask = new ShakeTask();
     shakeTask.execute();
   }
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity
     calendar.set(Calendar.MINUTE, 0);
     calendar.set(Calendar.SECOND, 0);
     calendar.set(Calendar.MILLISECOND, 0);
-    calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+    calendar.setTimeZone(TimeZone.getTimeZone(getString(R.string.utc_timezone)));
     long timestampStartDay = calendar.getTimeInMillis();
     return timestampStartDay;
   }
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     spinner.setAdapter(adapter);
 
-    String selection = getFromSharedPrefs("int");
+    String selection = getFromSharedPrefs(getString(R.string.sharedpref_int));
     spinner.setSelection(Integer.parseInt(selection));
     spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
       @Override
@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
-    String varient = null;
+//     String varient = null;
     int id = item.getItemId();
     if (id == R.id.nav_map) {
       switchFragment(mapFragment, true, null);
@@ -370,7 +370,7 @@ public class MainActivity extends AppCompatActivity
       super.onCancelled();
       Log.d(TAG, "onCancelled called");
       if (exception instanceof UnknownHostException) {
-        Toast.makeText(MainActivity.this, "Unable to connect to server.. check internet connection",
+        Toast.makeText(MainActivity.this, R.string.connectionerror_toast,
             Toast.LENGTH_LONG).show();
       } else {
         //FIXME do what?

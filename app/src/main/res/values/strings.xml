@@ -13,6 +13,24 @@
   <string name="shaker_made_here">Shaker was made in Albuquerque</string>
   <string name="string_key">FILTER_KEY</string>
   <string name="int_key">INT_KEY</string>
+  <string name="usgs_link"><![CDATA[<a href=\'https://earthquake.usgs.gov/\'> USGS </a>]]></string>
+  <string name="lic_link"><![CDATA[<a href=\'https://www.apache.org/licenses/LICENSE-2.0\'> LICENSE </a>]]></string>
+  <string name="status_snackbar">Automatic events are posted by automatic systems, Reviewed events have been looked at by a human.</string>
+  <string name="nst_default">N/A</string>
+  <string name="nst_snackbar">Number of seismic stations which reported P- and S-arrival times for this earthquake.</string>
+  <string name="alert_snackbar">Typically “green”, “yellow”, “orange”, or “red” see USGS site for more info.</string>
+  <string name="alert_default">None</string>
+  <string name="felt_default">None</string>
+  <string name="felt_snackbar">The total number of felt reports submitted to the DYFI? system.</string>
+  <string name="htlm_begin"><![CDATA[<a href=\']]></string>
+  <string name="html_end"><![CDATA[\'> Link </a>]]></string>
+  <string name="utc_timezone">UTC</string>
+  <string name="sharedpref_string">string</string>
+  <string name="sharedpref_int">int</string>
+  <string name="connectionerror_toast">Unable to connect to server.. check internet connection</string>
+  <string name="magnitude">Magnitude</string>
+  <string name="depth">Depth:</string>
+  <string name="km">KM</string>
 
 
 </resources>

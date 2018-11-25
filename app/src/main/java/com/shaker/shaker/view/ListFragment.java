@@ -45,10 +45,6 @@ public class ListFragment extends Fragment {
     shakesView.setAdapter(adapter);
     ((MainActivity) getActivity()).queryShakes((QueryCallback<Feature>) features -> {
       updateList(features);
-//      ListFragment.this.features.clear();
-//      ListFragment.this.features.addAll(features);
-//      adapter.notifyDataSetChanged();
-//      Toast.makeText(getActivity(),Integer.toString(features.size()) + " Events",Toast.LENGTH_LONG).show();
     }, filter);
     return view;
   }
