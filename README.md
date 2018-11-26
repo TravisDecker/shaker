@@ -4,7 +4,9 @@ Shaker is Android app that allows users to see recent earthquakes from around th
 #Links
 - Build Instructions 
 - Use instructions.
-- ERD [Link](shakererdv2.pdf)
+- ERD [Link](
+        shaker/docs/shakererdv2.pdf
+      )
 - DDL
 - JavaDocs
 - Licenses
