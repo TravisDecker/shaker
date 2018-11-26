@@ -2,12 +2,12 @@
 Shaker is Android app that allows users to see recent earthquakes from around the world and a visually stimulating way.Shaker wa spawned from my interest in geology and the discovery of the USGS( United States Geological Survey) API that provides the data to Shaker. The app is useful in that its quick and mobile and provides users with detailed information about events as well as links to that event  on the USGS site.
 
 #Links
-Build Instructions 
-Use instructions.
-ERD [Link](docs\shakererdv2.pdf)
-DDL
-JavaDocs
-Licenses
+- Build Instructions 
+- Use instructions.
+- ERD [Link](shaker/docs/shakererdv2.pdf)
+- DDL
+- JavaDocs
+- Licenses
 
 Currently Shaker functions properly. However there are features that would greatly improve the functionality of the app. Future versions of the app would ideally implement the following; 
 
