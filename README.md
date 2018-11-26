@@ -24,6 +24,6 @@ Shaker was created with a target API level of 28 and has a minimum level of 21. 
 - Pixel API 24 (emulated)
 - OnePlus 6t API 28
 
-#External services
+# External services
 Google Maps
 USGS web service
