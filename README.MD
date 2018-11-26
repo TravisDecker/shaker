@@ -9,10 +9,7 @@ DDL
 JavaDocs
 Licenses
 
-
-
-
-	Currently Shaker functions properly. However there are features that would greatly improve the functionality of the app. Future versions of the app would ideally implement the following; 
+Currently Shaker functions properly. However there are features that would greatly improve the functionality of the app. Future versions of the app would ideally implement the following; 
 
 -The ability for users to specify a date or dates to filter events.
 -The ability for users to view the event information card by clicking on that event on the map.
