@@ -7,7 +7,7 @@ Shaker is Android app that allows users to see recent earthquakes from around th
 - ERD [Link](/docs/shakererdv2.pdf)
 - DDL [Link](/app/ShakerDDL.sql)
 - JavaDocs [Link](/docs/api)
-- Licenses
+- Licenses [link](Licenses.md)
 
 Currently Shaker functions properly. However there are features that would greatly improve the functionality of the app. Future versions of the app would ideally implement the following; 
 
@@ -17,7 +17,7 @@ Currently Shaker functions properly. However there are features that would great
 
 Shaker is restricted to portrait orientation, and may or may not benefit from the ability to change orientation. Shakers appearance is satisfactory on standard screen sizes but is less appealing on larger screens such as tablets. 
 
-Shaker was created with a target API level of 28 and has a minimum level of 21. Shaker wa tested in the following environments;
+Shaker was created with a target API level of 28 and has a minimum level of 21. Shaker was tested in the following environments;
 
 - Nexus 5X API 27 (emulated)
 - Nexus 10 API 27 (emulated)
@@ -25,5 +25,5 @@ Shaker was created with a target API level of 28 and has a minimum level of 21. 
 - OnePlus 6t API 28
 
 # External services
-Google Maps
-USGS web service
+- Google Maps [Google Maps API](https://developers.google.com/maps/documentation/android-sdk/intro)
+- USGS API [API Documentation](https://earthquake.usgs.gov/fdsnws/event/1/)
