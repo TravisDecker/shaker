@@ -17,10 +17,19 @@ import com.shaker.shaker.R;
 import com.shaker.shaker.model.entity.Properties;
 import java.util.Date;
 
+/**
+ * The type Shake fragment.
+ */
 public class ShakeFragment extends Fragment {
 
   private static final String KEY = "key";
 
+  /**
+   * New instance shake fragment.
+   *
+   * @param properties the properties
+   * @return the shake fragment
+   */
   static ShakeFragment newInstance(Properties properties) {
     ShakeFragment fragment = new ShakeFragment();
     Bundle bundle = new Bundle();
@@ -84,7 +93,6 @@ public class ShakeFragment extends Fragment {
     felt.setOnClickListener(v -> Snackbar
         .make(v, R.string.felt_snackbar,
             Snackbar.LENGTH_LONG).show());
-
 
     TextView urlText = view.findViewById(R.id.url_text);
     String html =

@@ -18,12 +18,22 @@ import com.shaker.shaker.model.entity.Properties;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Recycler view adapter.
+ */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
   private Fragment fragment;
   private List<Feature> features;
   private Context context;
 
+  /**
+   * Instantiates a new Recycler view adapter.
+   *
+   * @param features the features
+   * @param context the context
+   * @param fragment the fragment
+   */
   public RecyclerViewAdapter(List<Feature> features, Context context, Fragment fragment) {
     this.features = features;
     this.context = context;
@@ -49,15 +59,41 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     return features.size();
   }
 
+  /**
+   * The type View holder.
+   */
   class ViewHolder extends RecyclerView.ViewHolder {
 
+    /**
+     * The Card.
+     */
     CardView card;
+    /**
+     * The Place text.
+     */
     TextView placeText;
+    /**
+     * The Time text.
+     */
     TextView timeText;
+    /**
+     * The Mag text.
+     */
     TextView magText;
+    /**
+     * The Depth text.
+     */
     TextView depthText;
+    /**
+     * The Properties.
+     */
     Properties properties;
 
+    /**
+     * Instantiates a new View holder.
+     *
+     * @param itemView the item view
+     */
     ViewHolder(@NonNull View itemView) {
       super(itemView);
       card = itemView.findViewById(R.id.shake_card);
@@ -74,9 +110,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
       depthText = itemView.findViewById(R.id.depth_text);
     }
 
+    /**
+     * Bind.
+     *
+     * @param feature the feature
+     */
     void bind(Feature feature) {
       Geometry geometry = feature.getGeometry();
-      // TODO decide where to use geometry
       properties = feature.getProperties();
       placeText.setText(properties.getPlace());
       timeText.setText(new Date(properties.getTime()).toString());

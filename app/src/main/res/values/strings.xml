@@ -31,6 +31,7 @@
   <string name="magnitude">Magnitude</string>
   <string name="depth">Depth:</string>
   <string name="km">KM</string>
+  <string name="sharedpref_defaults">12 Hours</string>
 
 
 </resources>

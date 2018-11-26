@@ -3,6 +3,9 @@ package com.shaker.shaker.service;
 import android.app.Application;
 import com.facebook.stetho.Stetho;
 
+/**
+ * The type Shaker application.
+ */
 public class ShakerApplication extends Application {
 
   @Override

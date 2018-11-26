@@ -56,6 +56,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends AppCompatActivity
     implements OnNavigationItemSelectedListener, OnMapReadyCallback {
 
@@ -142,7 +145,8 @@ public class MainActivity extends AppCompatActivity
         result = Integer.toString(temp);
         break;
       case "string":
-        result = sharedPreferences.getString(getString(R.string.string_key), "12 Hours");
+        result = sharedPreferences
+            .getString(getString(R.string.string_key), getString(R.string.sharedpref_defaults));
         break;
     }
     return result;
@@ -194,6 +198,11 @@ public class MainActivity extends AppCompatActivity
     addPins(map);
   }
 
+  /**
+   * Method that adds event pins to the map (including the ABQ PIN).
+   *
+   * @param map the map object to add pins to.
+   */
   public void addPins(GoogleMap map) {
     if (map != null) {
       map.clear();
@@ -257,7 +266,6 @@ public class MainActivity extends AppCompatActivity
     spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //Toast.makeText(MainActivity.this, "Applying Filter...", Toast.LENGTH_SHORT).show();
         queryShakes(features -> {
           // MainActivity.this.features = new ArrayList<>();
           MainActivity.this.features.clear();
@@ -282,11 +290,8 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-//       Handle action bar item clicks here. The action bar will
-//       automatically handle clicks on the Home/Up button, so long
-//      as you specify a parent activity in AndroidManifest.xml
+
     int id = item.getItemId();
-//    noinspection SimplifiableIfStatement
     if (id == R.id.action_settings) {
       return true;
     }
@@ -295,7 +300,6 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
-//     String varient = null;
     int id = item.getItemId();
     if (id == R.id.nav_map) {
       switchFragment(mapFragment, true, null);
@@ -309,12 +313,28 @@ public class MainActivity extends AppCompatActivity
     return true;
   }
 
+  /**
+   * Method passes callback to the query shakes adn calls execute.
+   *
+   * @param callback the callback
+   * @param filter the query filter
+   */
   public void queryShakes(QueryCallback callback, String filter) {
     new QueryTask(callback).execute(filter);
   }
 
+  /**
+   * The interface Query callback.
+   *
+   * @param <T> the type parameter
+   */
   public interface QueryCallback<T> {
 
+    /**
+     * Method to be overridden in classes that extend this interface.
+     *
+     * @param features the features
+     */
     void consume(List<T> features);
   }
 
@@ -324,7 +344,10 @@ public class MainActivity extends AppCompatActivity
     super.onDestroy();
   }
 
-  public class ShakeTask extends AsyncTask<Void, Void, List<Feature>> {
+  /**
+   * The type Shake task.
+   */
+  private class ShakeTask extends AsyncTask<Void, Void, List<Feature>> {
 
     private Exception exception;
 
@@ -373,7 +396,7 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(MainActivity.this, R.string.connectionerror_toast,
             Toast.LENGTH_LONG).show();
       } else {
-        //FIXME do what?
+        //Do Nothing.
       }
 
     }
@@ -383,6 +406,11 @@ public class MainActivity extends AppCompatActivity
 
     private QueryCallback callback;
 
+    /**
+     * Instantiates a new Query task.
+     *
+     * @param callback the callback
+     */
     public QueryTask(QueryCallback callback) {
       this.callback = callback;
     }

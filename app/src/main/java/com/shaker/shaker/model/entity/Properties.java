@@ -5,8 +5,14 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The type Properties.
+ */
 public class Properties implements Parcelable {
 
+  /**
+   * The constant CREATOR.
+   */
   public static final Parcelable.Creator<Properties> CREATOR
       = new Parcelable.Creator<Properties>() {
     public Properties createFromParcel(Parcel in) {
@@ -67,100 +73,217 @@ public class Properties implements Parcelable {
   @Expose
   private String title;
 
+  /**
+   * Instantiates a new Properties.
+   */
+  public Properties() {
+  }
+
+  /**
+   * Gets mag.
+   *
+   * @return the mag
+   */
   public Double getMag() {
     return mag;
   }
 
+  /**
+   * Sets mag.
+   *
+   * @param mag the mag
+   */
   public void setMag(Double mag) {
     this.mag = mag;
   }
 
+  /**
+   * Gets place.
+   *
+   * @return the place
+   */
   public String getPlace() {
     return place;
   }
 
+  /**
+   * Sets place.
+   *
+   * @param place the place
+   */
   public void setPlace(String place) {
     this.place = place;
   }
 
+  /**
+   * Gets time.
+   *
+   * @return the time
+   */
   public Long getTime() {
     return time;
   }
 
+  /**
+   * Sets time.
+   *
+   * @param time the time
+   */
   public void setTime(Long time) {
     this.time = time;
   }
 
+  /**
+   * Gets updated.
+   *
+   * @return the updated
+   */
   public Long getUpdated() {
     return updated;
   }
 
+  /**
+   * Sets updated.
+   *
+   * @param updated the updated
+   */
   public void setUpdated(Long updated) {
     this.updated = updated;
   }
 
+  /**
+   * Gets url.
+   *
+   * @return the url
+   */
   public String getUrl() {
     return url;
   }
 
+  /**
+   * Sets url.
+   *
+   * @param url the url
+   */
   public void setUrl(String url) {
     this.url = url;
   }
 
+  /**
+   * Gets felt.
+   *
+   * @return the felt
+   */
   public Long getFelt() {
     return felt;
   }
 
+  /**
+   * Sets felt.
+   *
+   * @param felt the felt
+   */
   public void setFelt(Long felt) {
     this.felt = felt;
   }
 
+  /**
+   * Gets alert.
+   *
+   * @return the alert
+   */
   public String getAlert() {
     return alert;
   }
 
+  /**
+   * Sets alert.
+   *
+   * @param alert the alert
+   */
   public void setAlert(String alert) {
     this.alert = alert;
   }
 
+  /**
+   * Gets status.
+   *
+   * @return the status
+   */
   public String getStatus() {
     return status;
   }
 
+  /**
+   * Sets status.
+   *
+   * @param status the status
+   */
   public void setStatus(String status) {
     this.status = status;
   }
 
+  /**
+   * Gets net.
+   *
+   * @return the net
+   */
   public String getNet() {
     return net;
   }
 
+  /**
+   * Sets net.
+   *
+   * @param net the net
+   */
   public void setNet(String net) {
     this.net = net;
   }
 
+  /**
+   * Gets ids.
+   *
+   * @return the ids
+   */
   public String getIds() {
     return ids;
   }
 
+  /**
+   * Sets ids.
+   *
+   * @param ids the ids
+   */
   public void setIds(String ids) {
     this.ids = ids;
   }
 
+  /**
+   * Gets nst.
+   *
+   * @return the nst
+   */
   public Long getNst() {
     return nst;
   }
 
+  /**
+   * Sets nst.
+   *
+   * @param nst the nst
+   */
   public void setNst(Long nst) {
     this.nst = nst;
   }
 
+  /**
+   * Gets title.
+   *
+   * @return the title
+   */
   public String getTitle() {
     return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
   }
 
   @Override
@@ -168,7 +291,13 @@ public class Properties implements Parcelable {
     return 0;
   }
 
-  public Properties() {
+  /**
+   * Sets title.
+   *
+   * @param title the title
+   */
+  public void setTitle(String title) {
+    this.title = title;
   }
 
   private Properties(Parcel in) {

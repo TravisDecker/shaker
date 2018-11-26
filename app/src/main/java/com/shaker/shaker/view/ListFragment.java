@@ -14,15 +14,27 @@ import com.shaker.shaker.model.entity.Feature;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type List fragment.
+ */
 public class ListFragment extends Fragment {
 
   private static final String KEY = "key";
+  /**
+   * The constant fragment.
+   */
   public static ListFragment fragment;
   private static Bundle bundle;
 
   private RecyclerView.Adapter adapter;
   private List<Feature> features;
 
+  /**
+   * New instance list fragment.
+   *
+   * @param filter the filter
+   * @return the list fragment
+   */
   public static ListFragment newInstance(String filter) {
     if (fragment == null) {
       fragment = new ListFragment();
@@ -49,6 +61,11 @@ public class ListFragment extends Fragment {
     return view;
   }
 
+  /**
+   * Update list.
+   *
+   * @param features the features
+   */
   public void updateList(List<Feature> features) {
     ListFragment.this.features.clear();
     ListFragment.this.features.addAll(features);

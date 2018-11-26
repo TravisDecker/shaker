@@ -14,10 +14,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.shaker.shaker.R;
 
+/**
+ * The type About page fragment.
+ */
 public class AboutPageFragment extends Fragment {
 
   private static AboutPageFragment fragment;
 
+  /**
+   * New instance about page fragment.
+   *
+   * @return the about page fragment
+   */
   public static AboutPageFragment newInstance() {
     if (fragment == null) {
       fragment = new AboutPageFragment();
