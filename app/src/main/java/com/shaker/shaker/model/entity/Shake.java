@@ -58,7 +58,7 @@ public class Shake {
   }
 
   /**
-   * Gets features.
+   * Gets list of features.
    *
    * @return the features
    */
@@ -67,7 +67,7 @@ public class Shake {
   }
 
   /**
-   * Sets features.
+   * Sets list of features.
    *
    * @param features the features
    */

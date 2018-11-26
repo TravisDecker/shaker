@@ -74,13 +74,13 @@ public class Properties implements Parcelable {
   private String title;
 
   /**
-   * Instantiates a new Properties.
+   * Instantiates a new Properties to be used by parcelable.
    */
   public Properties() {
   }
 
   /**
-   * Gets mag.
+   * Gets event mag.
    *
    * @return the mag
    */
@@ -89,7 +89,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Sets mag.
+   * Sets event mag.
    *
    * @param mag the mag
    */
@@ -98,7 +98,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Gets place.
+   * Gets event place.
    *
    * @return the place
    */
@@ -107,7 +107,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Sets place.
+   * Sets event place.
    *
    * @param place the place
    */
@@ -116,7 +116,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Gets time.
+   * Gets event time.
    *
    * @return the time
    */
@@ -125,7 +125,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Sets time.
+   * Sets event time.
    *
    * @param time the time
    */
@@ -134,7 +134,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Gets updated.
+   * Gets event updated time stamp.
    *
    * @return the updated
    */
@@ -143,7 +143,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Sets updated.
+   * Gets event updated time stamp.
    *
    * @param updated the updated
    */
@@ -152,7 +152,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Gets url.
+   * Gets event url.
    *
    * @return the url
    */
@@ -161,7 +161,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Sets url.
+   * Sets event  url.
    *
    * @param url the url
    */
@@ -170,21 +170,12 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Gets felt.
+   * Gets the number of event felt reports.
    *
    * @return the felt
    */
   public Long getFelt() {
     return felt;
-  }
-
-  /**
-   * Sets felt.
-   *
-   * @param felt the felt
-   */
-  public void setFelt(Long felt) {
-    this.felt = felt;
   }
 
   /**
@@ -206,7 +197,16 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Gets status.
+   * Sets the number of event felt reports.
+   *
+   * @param felt the felt
+   */
+  public void setFelt(Long felt) {
+    this.felt = felt;
+  }
+
+  /**
+   * Gets event status.
    *
    * @return the status
    */
@@ -215,7 +215,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Sets status.
+   * Sets event status.
    *
    * @param status the status
    */
@@ -224,7 +224,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Gets net.
+   * Gets event network.
    *
    * @return the net
    */
@@ -233,7 +233,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Sets net.
+   * Sets event network.
    *
    * @param net the net
    */
@@ -242,7 +242,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Gets ids.
+   * Gets event provider ids.
    *
    * @return the ids
    */
@@ -251,7 +251,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Sets ids.
+   * Sets event provider ids.
    *
    * @param ids the ids
    */
@@ -260,7 +260,7 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Gets nst.
+   * Gets number of stations.
    *
    * @return the nst
    */
@@ -269,21 +269,12 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Sets nst.
+   * Sets number of stations.
    *
    * @param nst the nst
    */
   public void setNst(Long nst) {
     this.nst = nst;
-  }
-
-  /**
-   * Gets title.
-   *
-   * @return the title
-   */
-  public String getTitle() {
-    return title;
   }
 
   @Override
@@ -292,7 +283,16 @@ public class Properties implements Parcelable {
   }
 
   /**
-   * Sets title.
+   * Gets event title.
+   *
+   * @return the title
+   */
+  public String getTitle() {
+    return title;
+  }
+
+  /**
+   * Sets event title.
    *
    * @param title the title
    */

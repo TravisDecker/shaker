@@ -51,7 +51,7 @@ public class Metadata {
   }
 
   /**
-   * Gets url.
+   * Gets request url.
    *
    * @return the url
    */
@@ -60,7 +60,7 @@ public class Metadata {
   }
 
   /**
-   * Sets url.
+   * Gets request url.
    *
    * @param url the url
    */

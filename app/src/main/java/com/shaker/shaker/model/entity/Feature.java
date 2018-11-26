@@ -42,7 +42,7 @@ public class Feature {
   }
 
   /**
-   * Sets type.
+   * Sets feature type.
    *
    * @param type the type
    */

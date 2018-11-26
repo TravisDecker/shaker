@@ -20,7 +20,7 @@ public class Geometry {
   private Double depth;
 
   /**
-   * Gets coordinates.
+   * Gets the coordinates of the feature.
    *
    * @return the coordinates
    */
@@ -29,7 +29,7 @@ public class Geometry {
   }
 
   /**
-   * Sets coordinates.
+   * Sets the coordinates of the feature.
    *
    * @param coordinates the coordinates
    */
