@@ -1,0 +1,129 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "da370aa7a59478b9332aa682af95c8fe",
+    "entities": [
+      {
+        "tableName": "Feature",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`type` TEXT, `id` TEXT NOT NULL, `mag` REAL, `place` TEXT, `time` INTEGER, `updated` INTEGER, `url` TEXT, `felt` INTEGER, `alert` TEXT, `status` TEXT, `net` TEXT, `ids` TEXT, `nst` INTEGER, `title` TEXT, `latitude` REAL, `longitude` REAL, `depth` REAL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "properties.mag",
+            "columnName": "mag",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.place",
+            "columnName": "place",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.time",
+            "columnName": "time",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.updated",
+            "columnName": "updated",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.felt",
+            "columnName": "felt",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.alert",
+            "columnName": "alert",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.net",
+            "columnName": "net",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.ids",
+            "columnName": "ids",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.nst",
+            "columnName": "nst",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "properties.title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "geometry.latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "geometry.longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "geometry.depth",
+            "columnName": "depth",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"da370aa7a59478b9332aa682af95c8fe\")"
+    ]
+  }
+}

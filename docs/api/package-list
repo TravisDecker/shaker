@@ -1,0 +1,7 @@
+com.shaker.shaker
+com.shaker.shaker.controller
+com.shaker.shaker.model.dao
+com.shaker.shaker.model.database
+com.shaker.shaker.model.entity
+com.shaker.shaker.service
+com.shaker.shaker.view
