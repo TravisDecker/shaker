@@ -17,8 +17,8 @@ Shaker was created with a target API level of 28 and has a minimum level of 21. 
 - OnePlus 6t API 28
 
 # Links
-- Build Instructions 
-- Use instructions.
+- Build Instructions [Link](buildinstructions.md)
+- Use instructions. 
 - ERD [Link](/docs/shakererdv2.pdf)
 - DDL [Link](/app/ShakerDDL.sql)
 - JavaDocs [Link](/docs/api/index.html)
