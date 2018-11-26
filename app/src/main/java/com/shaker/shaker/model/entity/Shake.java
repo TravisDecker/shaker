@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * The type Shake.
+ * The Shake entity.
  */
 public class Shake {
 

@@ -14,24 +14,24 @@ import java.util.List;
 public interface FeatureDao {
 
   /**
-   * Insert list.
+   * Insert features.
    *
-   * @param features the features
-   * @return the list
+   * @param features the features to be inserted
+   * @return features
    */
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   List<Long> insert(List<Feature> features);
 
   /**
-   * Select list.
+   * Select all features.
    *
-   * @return the list
+   * @return features
    */
   @Query("SELECT * FROM Feature")
   List<Feature> select();
 
   /**
-   * Select 30 list.
+   * Select features from the last 30 days.
    *
    * @param time the time
    * @return the list
@@ -40,25 +40,25 @@ public interface FeatureDao {
   List<Feature> select30(long time);
 
   /**
-   * Select 24 list.
+   * Select features form the last 24 hours.
    *
    * @param time the time
-   * @return the list
+   * @return features
    */
   @Query("SELECT * FROM Feature WHERE time >= (:time - 86400000) ")
   List<Feature> select24(long time);
 
   /**
-   * Select 12 list.
+   * Select features form the last 12 hours.
    *
    * @param time the time
-   * @return the list
+   * @return features
    */
   @Query("SELECT * FROM Feature WHERE time >= (:time - 21600000) ")
   List<Feature> select12(long time);
 
   /**
-   * Nuke int.
+   * delete all from features
    *
    * @return the int
    */

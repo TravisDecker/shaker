@@ -31,7 +31,7 @@
         style="@style/bigCardStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="time"
+        android:text="@string/shakeview_time"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -41,7 +41,7 @@
         style="@style/bigCardStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="place"
+        android:text="@string/shakeview_place"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/time_text"/>
@@ -51,7 +51,7 @@
         style="@style/bigCardStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Magnitude"
+        android:text="@string/shakeview_magnitude"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/mag_text"
         app:layout_constraintTop_toBottomOf="@id/place_text"/>
@@ -61,7 +61,6 @@
         style="@style/bigCardStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="mag"
         app:layout_constraintLeft_toRightOf="@id/mag"
         app:layout_constraintRight_toLeftOf="@+id/status"
         app:layout_constraintTop_toBottomOf="@id/place_text"/>
@@ -71,7 +70,7 @@
         style="@style/bigCardStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Status"
+        android:text="@string/shakeview_status"
         app:layout_constraintLeft_toRightOf="@id/mag_text"
         app:layout_constraintRight_toLeftOf="@+id/status_text"
         app:layout_constraintTop_toBottomOf="@id/place_text"/>
@@ -81,7 +80,6 @@
         style="@style/bigCardStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="status"
         app:layout_constraintLeft_toRightOf="@id/status"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/place_text"/>
@@ -92,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:longClickable="true"
-        android:text="NST"
+        android:text="@string/shakeview_nst"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/nst_text"
         app:layout_constraintTop_toBottomOf="@id/status"/>
@@ -102,7 +100,6 @@
         style="@style/bigCardStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="nst"
         app:layout_constraintLeft_toRightOf="@id/nst"
         app:layout_constraintRight_toLeftOf="@+id/alert"
         app:layout_constraintTop_toBottomOf="@id/status"/>
@@ -122,7 +119,7 @@
         style="@style/bigCardStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="alert"
+        android:text="@string/shakeview_alert"
         app:layout_constraintLeft_toRightOf="@id/alert"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status"/>
@@ -132,7 +129,7 @@
         style="@style/bigCardStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Felt"
+        android:text="@string/shakeview_felt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/felt_text"
         app:layout_constraintTop_toBottomOf="@id/alert"/>
@@ -150,7 +147,7 @@
         style="@style/bigCardStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="More information: "
+        android:text="@string/more_information"
         android:autoLink="web"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

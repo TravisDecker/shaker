@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * The type Metadata.
+ * The  Metadata entity.
  */
 public class Metadata {
 

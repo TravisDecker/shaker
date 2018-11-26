@@ -8,7 +8,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * The type Feature.
+ * The Feature entity.
  */
 @Entity
 public class Feature {
@@ -33,7 +33,7 @@ public class Feature {
   private String id;
 
   /**
-   * Gets type.
+   * Gets feature type.
    *
    * @return the type
    */
@@ -51,7 +51,7 @@ public class Feature {
   }
 
   /**
-   * Gets properties.
+   * Gets feature properties.
    *
    * @return the properties
    */
@@ -60,7 +60,7 @@ public class Feature {
   }
 
   /**
-   * Sets properties.
+   * Sets feature properties.
    *
    * @param properties the properties
    */
@@ -69,7 +69,7 @@ public class Feature {
   }
 
   /**
-   * Gets geometry.
+   * Gets feature geometry.
    *
    * @return the geometry
    */
@@ -78,7 +78,7 @@ public class Feature {
   }
 
   /**
-   * Sets geometry.
+   * Sets feature geometry.
    *
    * @param geometry the geometry
    */
@@ -87,7 +87,7 @@ public class Feature {
   }
 
   /**
-   * Gets id.
+   * Gets feature id.
    *
    * @return the id
    */
@@ -96,7 +96,7 @@ public class Feature {
   }
 
   /**
-   * Sets id.
+   * Sets feature id.
    *
    * @param id the id
    */

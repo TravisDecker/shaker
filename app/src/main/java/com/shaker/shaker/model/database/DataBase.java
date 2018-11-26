@@ -67,7 +67,7 @@ public abstract class DataBase extends RoomDatabase {
   }
 
   /**
-   * Convert cords.
+   * Convert coordinates from a list of doubles to individual fields in the entity.
    *
    * @param features the features
    */

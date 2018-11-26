@@ -18,7 +18,7 @@ import com.shaker.shaker.model.entity.Properties;
 import java.util.Date;
 
 /**
- * The type Shake fragment.
+ * The Shake fragment.
  */
 public class ShakeFragment extends Fragment {
 

@@ -6,12 +6,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * The type Properties.
+ * The Properties entity.
  */
 public class Properties implements Parcelable {
 
   /**
-   * The constant CREATOR.
+   * The CREATOR for Parcelable.
    */
   public static final Parcelable.Creator<Properties> CREATOR
       = new Parcelable.Creator<Properties>() {

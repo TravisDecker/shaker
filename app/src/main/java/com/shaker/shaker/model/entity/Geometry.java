@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 /**
- * The type Geometry.
+ * The  Geometry entity.
  */
 public class Geometry {
 

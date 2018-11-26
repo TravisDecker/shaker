@@ -345,7 +345,7 @@ public class MainActivity extends AppCompatActivity
   }
 
   /**
-   * The type Shake task.
+   * class that executes the API call to USGS.
    */
   private class ShakeTask extends AsyncTask<Void, Void, List<Feature>> {
 
@@ -406,12 +406,7 @@ public class MainActivity extends AppCompatActivity
 
     private QueryCallback callback;
 
-    /**
-     * Instantiates a new Query task.
-     *
-     * @param callback the callback
-     */
-    public QueryTask(QueryCallback callback) {
+    QueryTask(QueryCallback callback) {
       this.callback = callback;
     }
 

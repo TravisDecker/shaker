@@ -4,7 +4,7 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 
 /**
- * The type Shaker application.
+ * Application ti initialize Stetho.
  */
 public class ShakerApplication extends Application {
 

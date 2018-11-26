@@ -32,6 +32,14 @@
   <string name="depth">Depth:</string>
   <string name="km">KM</string>
   <string name="sharedpref_defaults">12 Hours</string>
+  <string name="shakeview_time">time</string>
+  <string name="shakeview_place">place</string>
+  <string name="shakeview_magnitude">Magnitude</string>
+  <string name="shakeview_status">Status</string>
+  <string name="shakeview_nst">NST</string>
+  <string name="shakeview_alert">alert</string>
+  <string name="shakeview_felt">Felt</string>
+  <string name="more_information">More information:</string>
 
 
 </resources>
