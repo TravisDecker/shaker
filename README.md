@@ -18,7 +18,7 @@ Shaker was created with a target API level of 28 and has a minimum level of 21. 
 
 # Links
 - [Build Instructions](buildinstructions.md)
-- [Use instructions](useinstructions.md)
+- [User instructions](userinstructions.md)
 - [ERD](/docs/shakererdv2.pdf)
 - [DDL](/app/ShakerDDL.sql)
 - [JavaDocs](/docs/api/index.html)
