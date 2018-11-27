@@ -11,8 +11,11 @@ Select a directory to save the project and hit the "clone" button.
 
  Then from the IntelliJ IDEA main menu select "Import Project".
  
-Select Drinking Problems from the directory it was saved in. Make sure that Gradle is selected or the project will not build properly. 
+Select Shaker from the directory it was saved in. Make sure that Gradle is selected or the project will not build properly. 
 Click the next button. On the next menu screen check the box "Use auto-import" and then click the finish button.
+You may have to add and andoid app build configuration.
+
+Put the provided "keys.xml" file into the res/values folder, this is necessary for the google maps api.
 
 ## 3. Synchronize the Gradle build
 
@@ -22,4 +25,4 @@ Intellij IDEA should do this automatically. If not in build.gradle(Module:app) f
 
 Under the Build drop down menu select "build".  
 
-The app should now be ready to run. Selected the device you want to install it on and hit the okay button.
+Run the app by Selecting the device you want to install it on then click the okay button.
