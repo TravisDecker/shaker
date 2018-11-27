@@ -25,7 +25,7 @@ Shaker was created with a target API level of 28 and has a minimum level of 21. 
 - Licenses [link](Licenses.md)
 - ERD [Link](/docs/shakererdv2.pdf)
 - Wireframes [Link](/docs/Shakerwireframe.pdf)
--User Stories [Link](userstories.md)
+- User Stories [Link](userstories.md)
 
 # External services
 - Google Maps [Google Maps API](https://developers.google.com/maps/documentation/android-sdk/intro)
