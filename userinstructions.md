@@ -1,6 +1,6 @@
 # User Instructions 
 
-When you first open the app it will attempt to connect to the internet and download and store data from the USGS (United States Geological Survey), then it will populate the map with events. To see information about a single event simply tap the icon on the map. For more detailed information see the “List View” section.
+When you first open the app it will attempt to connect to the internet and download and store data from the USGS (United States Geological Survey), then it will populate the map with events. To see information about a single event simply tap the icon on the map. For more detailed information see the “List View” section(NOTE: When you use the app for the first time it may take a few seconds for the information to download, during this time you may see zero events on the map).
 
 # filtering results
  Once the app has finished loading you can filter results using the drop down menu in the upper right corner. 
