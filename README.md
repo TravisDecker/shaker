@@ -17,15 +17,15 @@ Shaker was created with a target API level of 28 and has a minimum level of 21. 
 - OnePlus 6t API 28
 
 # Links
-- Build Instructions [Link](buildinstructions.md)
-- Use instructions. 
-- ERD [Link](/docs/shakererdv2.pdf)
-- DDL [Link](/app/ShakerDDL.sql)
-- JavaDocs [Link](/docs/api/index.html)
-- Licenses [link](Licenses.md)
-- ERD [Link](/docs/shakererdv2.pdf)
-- Wireframes [Link](/docs/Shakerwireframe.pdf)
-- User Stories [Link](userstories.md)
+- [Build Instructions](buildinstructions.md)
+- [Use instructions](useinstructions.md)
+- [ERD](/docs/shakererdv2.pdf)
+- [DDL](/app/ShakerDDL.sql)
+- [JavaDocs](/docs/api/index.html)
+- [Licenses](Licenses.md)
+- [ERD](/docs/shakererdv2.pdf)
+- [Wireframes](/docs/Shakerwireframe.pdf)
+- [User Stories](userstories.md)
 
 # External services
 - Google Maps [Google Maps API](https://developers.google.com/maps/documentation/android-sdk/intro)
