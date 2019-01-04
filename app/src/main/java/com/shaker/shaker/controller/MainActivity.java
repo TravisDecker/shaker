@@ -15,7 +15,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,7 +61,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity
     implements OnNavigationItemSelectedListener, OnMapReadyCallback {
 
-  private static final String TAG = "tag";
+  // private static final String TAG = "tag";
 
   private SupportMapFragment mapFragment;
   private ShakerService service;
@@ -186,14 +185,12 @@ public class MainActivity extends AppCompatActivity
     try {
       // Customise the styling of the base map using a JSON object defined
       // in a raw resource file.
-      boolean success = googleMap.setMapStyle(
+      googleMap.setMapStyle(
           MapStyleOptions.loadRawResourceStyle(
               this, R.raw.style_json));
-      if (!success) {
-        Log.e(TAG, "Style parsing failed.");
-      }
+
     } catch (Resources.NotFoundException e) {
-      Log.e(TAG, "Can't find style. Error: ", e);
+      //Do Nothing, map will load default style
     }
     addPins(map);
   }
@@ -366,11 +363,9 @@ public class MainActivity extends AppCompatActivity
         Shake shake = response.body();
         features = shake.getFeatures();
       } catch (UnknownHostException e) {
-        Log.d(TAG, e.getLocalizedMessage());
         exception = e;
         cancel(true);
       } catch (IOException e) {
-        Log.d(TAG, e.getLocalizedMessage());
         exception = e;
         cancel(true);
       }
@@ -378,7 +373,7 @@ public class MainActivity extends AppCompatActivity
         DataBase.convertCords(features);
         database.getFeatureDao().insert(features);
       } catch (Exception e) {
-        Log.d(TAG, e.getLocalizedMessage());
+        //Do Nothing, Circumstances unknown.
       }
       return features;
     }
@@ -391,7 +386,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCancelled() {
       super.onCancelled();
-      Log.d(TAG, "onCancelled called");
       if (exception instanceof UnknownHostException) {
         Toast.makeText(MainActivity.this, R.string.connectionerror_toast,
             Toast.LENGTH_LONG).show();
