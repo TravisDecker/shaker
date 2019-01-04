@@ -24,7 +24,6 @@ import java.util.concurrent.Executors;
     version = 1,
     exportSchema = true
 )
-//TODO export schema for documentation
 @TypeConverters(Converters.class)
 public abstract class DataBase extends RoomDatabase {
 

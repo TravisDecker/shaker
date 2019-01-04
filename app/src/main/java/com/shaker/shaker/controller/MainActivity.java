@@ -61,8 +61,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity
     implements OnNavigationItemSelectedListener, OnMapReadyCallback {
 
-  // private static final String TAG = "tag";
-
   private SupportMapFragment mapFragment;
   private ShakerService service;
   private List<Feature> features;
