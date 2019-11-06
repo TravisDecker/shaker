@@ -66,6 +66,7 @@ public class ListFragment extends Fragment {
    *
    * @param features the features
    */
+
   public void updateList(List<Feature> features) {
     ListFragment.this.features.clear();
     ListFragment.this.features.addAll(features);

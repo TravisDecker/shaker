@@ -43,6 +43,9 @@ public class ShakeFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     Properties properties = getArguments().getParcelable(KEY);
+
+
+
     View view = inflater.inflate(R.layout.shake_fragment, container, false);
 
     TextView placeText = view.findViewById(R.id.place_text);

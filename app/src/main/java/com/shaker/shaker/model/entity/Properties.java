@@ -315,6 +315,8 @@ public class Properties implements Parcelable {
     in.readString();
   }
 
+
+
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeDouble(mag);

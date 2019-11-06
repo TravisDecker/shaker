@@ -92,7 +92,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
       Geometry geometry = feature.getGeometry();
       properties = feature.getProperties();
       placeText.setText(properties.getPlace());
-      timeText.setText(new Date(properties.getTime()).toString());
+      timeText.setText(new Date(pimroperties.getTe()).toString());
       String mag = context.getString(R.string.magnitude) + properties.getMag().toString();
       magText.setText(mag);
       String depth =

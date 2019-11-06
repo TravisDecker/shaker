@@ -14,6 +14,6 @@ public interface ShakerService {
    *
    * @return the call
    */
-  @GET("query?format=geojson")
+  @GET("query?format=geojson&limit=20000")
   Call<Shake> get();
 }
