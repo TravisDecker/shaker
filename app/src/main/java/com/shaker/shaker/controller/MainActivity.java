@@ -52,6 +52,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -91,8 +94,14 @@ public class MainActivity extends AppCompatActivity
     Gson gson = new GsonBuilder()
         .excludeFieldsWithoutExposeAnnotation()
         .create();
+
+    OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(20,TimeUnit.SECONDS).build();
+
     Retrofit retrofit = new Retrofit.Builder()
         .baseUrl(getString(R.string.base_url))
+            .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build();
     service = retrofit.create(ShakerService.class);
@@ -362,15 +371,17 @@ public class MainActivity extends AppCompatActivity
       List<Feature> features = null;
 
       try {
+        Log.i(TAG, "Calling WebService");
         Response<Shake> response = service.get().execute();
         Shake shake = response.body();
         features = shake.getFeatures();
+        Log.i(TAG, "Call successful");
       } catch (UnknownHostException e) {
-        Log.d(TAG, e.getLocalizedMessage());
+        Log.w(TAG, e.getLocalizedMessage());
         exception = e;
         cancel(true);
       } catch (IOException e) {
-        Log.d(TAG, e.getLocalizedMessage());
+        Log.w(TAG, e.getLocalizedMessage());
         exception = e;
         cancel(true);
       }
