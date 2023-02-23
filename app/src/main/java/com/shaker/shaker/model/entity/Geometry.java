@@ -1,6 +1,6 @@
 package com.shaker.shaker.model.entity;
 
-import android.arch.persistence.room.Ignore;
+import androidx.room.Ignore;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
